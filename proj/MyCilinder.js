@@ -22,6 +22,7 @@ class MyCilinder extends CGFobject {
     this.indices = [];
     this.normals = [];
     this.texCoords = [];
+    this.initialVertices = [];
 
     var alpha = 0;
     var alphaIncrement = (2 * Math.PI) / this.divs;
@@ -38,6 +39,7 @@ class MyCilinder extends CGFobject {
         var y = height;
         var z = Math.sin(-alpha);
         this.vertices.push(x, y, z);
+        
 
         //--- Indices
         if (height < 1 && side < this.divs) {
@@ -47,8 +49,8 @@ class MyCilinder extends CGFobject {
           // and the ones directly south (next, next+1)
           // (i.e. one full round of slices ahead)
           
-          this.indices.push( current + 1, next, current);
-          this.indices.push( current + 1, next + 1, next);
+          this.indices.push(current + 1, next, current);
+          this.indices.push(current + 1, next + 1, next);
         }
 
         //--- Normals
@@ -59,11 +61,8 @@ class MyCilinder extends CGFobject {
         alpha += alphaIncrement;
 
         //--- Texture Coordinates
-        // To be done... 
-        // May need some additional code also in the beginning of the function.
-        
+        this.texCoords.push(side/this.divs, height);
       }
-
     }
 
 
