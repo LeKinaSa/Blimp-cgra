@@ -29,7 +29,7 @@ class MyCilinder extends CGFobject {
     var sideVertices = this.divs + 1;
 
     // build both bases
-    for (let height = 0; height <= 1; height ++) {
+    for (let height = 1; height >= 0; height --) {
 
       // in base, build all the slices around
       alpha = 0;
@@ -49,8 +49,8 @@ class MyCilinder extends CGFobject {
           // and the ones directly south (next, next+1)
           // (i.e. one full round of slices ahead)
           
-          this.indices.push(current + 1, next, current);
-          this.indices.push(current + 1, next + 1, next);
+          this.indices.push(current + 1, current, next);
+          this.indices.push(current + 1, next, next + 1);
         }
 
         //--- Normals
@@ -61,7 +61,7 @@ class MyCilinder extends CGFobject {
         alpha += alphaIncrement;
 
         //--- Texture Coordinates
-        this.texCoords.push(side/this.divs, height);
+        this.texCoords.push(side/this.divs, 1 - height);
       }
     }
 
