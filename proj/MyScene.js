@@ -27,6 +27,19 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.sphere = new MySphere(this, 16, 8);
 
+        //this.incompleteSphere = new MySphere(this, 16, 8);
+        this.cilinder = new MyCilinder(this, 40);
+
+        //------ Applied Material
+        this.cilinderMaterial = new CGFappearance(this);
+        this.cilinderMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.cilinderMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.cilinderMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.cilinderMaterial.setShininess(10.0);
+        this.cilinderMaterial.loadTexture('images/earth.jpg');
+        this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+
         //Objects connected to MyInterface
         this.displayAxis = true;
 
@@ -78,8 +91,14 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         //This sphere does not have defined texture coordinates
+
         this.sphereTexture.apply();
         this.sphere.display();
+
+        //this.incompleteSphere.display();
+        this.cilinderMaterial.apply();
+        this.cilinder.display();
+
 
         // ---- END Primitive drawing section
     }
