@@ -28,7 +28,8 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 16, 8);
 
         //this.incompleteSphere = new MySphere(this, 16, 8);
-        this.cilinder = new MyCilinder(this, 40);
+        //this.cilinder = new MyCilinder(this, 40);
+        this.vehicle = new MyVehicle(this);
 
         //------ Applied Material
         this.cilinderMaterial = new CGFappearance(this);
@@ -96,8 +97,9 @@ class MyScene extends CGFscene {
         this.sphere.display();
 
         //this.incompleteSphere.display();
-        this.cilinderMaterial.apply();
-        this.cilinder.display();
+        //this.cilinderMaterial.apply();
+        //this.cilinder.display();
+        this.vehicle.display();
 
 
         // ---- END Primitive drawing section
