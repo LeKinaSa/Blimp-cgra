@@ -49,4 +49,18 @@ class MyVehicle extends CGFobject {
         this.position[1] = this.position[1];                                            // Y
         this.position[2] = this.position[2] + this.velocity * Math.cos(this.angle);     // Z
     }
+
+    turn(val) {
+        this.angle = this.angle + val;
+    }
+
+    accelerate(val) {
+        this.velocity = this.velocity + val;
+    }
+
+    reset() {
+        this.position = [0, 0, 0];
+        this.velocity = 0;
+        this.angle = 0;
+    }
 }
