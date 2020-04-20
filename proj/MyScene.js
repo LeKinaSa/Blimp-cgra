@@ -63,9 +63,9 @@ class MyScene extends CGFscene {
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.jpg');
         
 
-        this.textures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
+        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.textureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
+        this.cubeTextureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
         this.selectedTexture = 0;
         
         //Objects connected to MyInterface
@@ -97,7 +97,7 @@ class MyScene extends CGFscene {
     }
 
     updateAppliedTexture() {
-        this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
+        this.cubeMaterial.setTexture(this.cubeTextures[this.selectedTexture]);
     }
 
     display() {

@@ -24,7 +24,7 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
 
         // List Box to select Cube Map Texture
-        this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
+        this.gui.add(this.scene, 'selectedTexture', this.scene.cubeTextureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
 
         return true;
     }
