@@ -26,9 +26,8 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.sphere = new MySphere(this, 16, 8);
-
-        //this.incompleteSphere = new MySphere(this, 16, 8);
         this.cilinder = new MyCilinder(this, 40);
+        this.cubeMap = new MyCubeMap(this);
 
         //------ Applied Material
         this.cilinderMaterial = new CGFappearance(this);
@@ -42,6 +41,9 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displayCilinder = false;
+        this.displaySphere = false;
+        this.displayCubeMap = false;
 
         this.sphereTexture = new CGFappearance(this);
         this.sphereTexture.setAmbient(0.1, 0.1, 0.1, 1);
@@ -58,7 +60,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -90,15 +92,21 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        //This sphere does not have defined texture coordinates
 
-        this.sphereTexture.apply();
-        this.sphere.display();
+        if(this.displaySphere){
+            this.sphereTexture.apply();
+            this.sphere.display();
+        }
 
-        //this.incompleteSphere.display();
-        this.cilinderMaterial.apply();
-        this.cilinder.display();
+        if(this.displayCubeMap){
+            this.cubeMap.display();
+        }
 
+        if(this.displayCilinder){
+            this.cilinderMaterial.apply();
+            this.cilinder.display();
+        }
+        
 
         // ---- END Primitive drawing section
     }
