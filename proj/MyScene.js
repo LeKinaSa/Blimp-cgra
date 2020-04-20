@@ -26,8 +26,11 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.sphere = new MySphere(this, 16, 8);
+
         this.cilinder = new MyCilinder(this, 40);
         this.cubeMap = new MyCubeMap(this);
+        this.vehicle = new MyVehicle(this);
+
 
         //------ Applied Material
         this.cilinderMaterial = new CGFappearance(this);
@@ -98,9 +101,13 @@ class MyScene extends CGFscene {
             this.sphere.display();
         }
 
+
         if(this.displayCubeMap){
             this.cubeMap.display();
         }
+
+        this.vehicle.display();
+
 
         if(this.displayCilinder){
             this.cilinderMaterial.apply();
