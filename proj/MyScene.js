@@ -33,6 +33,15 @@ class MyScene extends CGFscene {
 
 
         //------ Applied Material
+        
+        this.sphereTexture = new CGFappearance(this);
+        this.sphereTexture.setAmbient(0.1, 0.1, 0.1, 1);
+        this.sphereTexture.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.sphereTexture.setSpecular(0.1, 0.1, 0.1, 1);
+        this.sphereTexture.setShininess(10.0);
+        this.sphereTexture.loadTexture('images/earth.jpg');
+        this.sphereTexture.setTextureWrap('REPEAT', 'REPEAT');
+
         this.cilinderMaterial = new CGFappearance(this);
         this.cilinderMaterial.setAmbient(0.1, 0.1, 0.1, 1);
         this.cilinderMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -40,36 +49,31 @@ class MyScene extends CGFscene {
         this.cilinderMaterial.setShininess(10.0);
         this.cilinderMaterial.loadTexture('images/earth.jpg');
         this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        /*
-        this.cubeMapMaterial2 = new CGFappearance(this);
-        this.cubeMapMaterial2 = new CGFappearance(this.scene);
-        this.cubeMapMaterial2.setAmbient(1,1,1,1);
-        this.cubeMapMaterial2.loadTexture('images/cubeMap2.png');
-        this.cubeMapMaterial2.setTextureWrap('REPEAT', 'REPEAT');
+        
+        this.cubeMaterial = new CGFappearance(this);
+        this.cubeMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.cubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.cubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.cubeMaterial.setShininess(10.0);
+        this.cubeMaterial.loadTexture('images/texture1.png');
+        this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.cubeMapMaterial3 = new CGFappearance(this);
-        this.cubeMapMaterial3 = new CGFappearance(this.scene);
-        this.cubeMapMaterial3.setAmbient(1,1,1,1);
-        this.cubeMapMaterial3.loadTexture('images/cubeMap3.png');
-        this.cubeMapMaterial3.setTextureWrap('REPEAT', 'REPEAT');
-        */
+        this.cubeTexture1 = new CGFtexture(this, 'images/cubemap.png');
+        this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
+        this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
+        
 
+        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
+        this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.cubeTextureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
+        this.selectedTexture = 0;
+        
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.displayCilinder = false;
         this.displaySphere = false;
-        this.displayCubeMap1 = false;
-        //this.displayCubeMap2 = false;
-        //this.displayCubeMap3 = false;
-        this.displayVehicle = false;
-
-        this.sphereTexture = new CGFappearance(this);
-        this.sphereTexture.setAmbient(0.1, 0.1, 0.1, 1);
-        this.sphereTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.sphereTexture.setSpecular(0.1, 0.1, 0.1, 1);
-        this.sphereTexture.setShininess(10.0);
-        this.sphereTexture.loadTexture('images/earth.jpg');
-        this.sphereTexture.setTextureWrap('REPEAT', 'REPEAT')
+        this.displayCubeMap = true;
+        this.displayVehicle = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -86,9 +90,14 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         //To be done...
+    }
+
+    updateAppliedTexture() {
+        this.cubeMaterial.setTexture(this.cubeTextures[this.selectedTexture]);
     }
 
     display() {
@@ -116,33 +125,14 @@ class MyScene extends CGFscene {
             this.sphere.display();
         }
 
-
-        if(this.displayCubeMap1){
+        if(this.displayCubeMap) {
+            this.cubeMaterial.apply();
+            this.pushMatrix();
+            this.scale(50, 50, 50);
             this.cubeMap.display();
-        }
-/*
-        if(this.cubeMapMateria2){
-            this.cubeMap.top.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.bottom.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.back.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.front.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.left.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.right.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMapMaterial2.apply();
-            this.cubeMap.display();
+            this.popMatrix();
         }
 
-        if(this.cubeMapMateria3){
-            this.cubeMap.top.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.bottom.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.back.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.front.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.left.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMap.right.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
-            this.cubeMapMaterial3.apply();
-            this.cubeMap.display();
-        }
-*/
         if(this.displayVehicle){
             this.vehicle.display();
         }
