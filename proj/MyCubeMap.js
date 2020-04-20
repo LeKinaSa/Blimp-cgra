@@ -52,15 +52,6 @@ class MyCubeMap extends CGFobject {
             3.0/4.0, 2.0/3.0
         ]);
     }
-    
-    enableNormalViz() {
-        this.positiveX.enableNormalViz();
-        this.positiveY.enableNormalViz();
-        this.positiveZ.enableNormalViz();
-        this.negativeX.enableNormalViz();
-        this.negativeY.enableNormalViz();
-        this.negativeZ.enableNormalViz();
-    }
 
     display() {
         // X + (FRONT)
