@@ -69,11 +69,11 @@ class MyScene extends CGFscene {
         this.selectedTexture = 0;
         
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.displayCilinder = false;
         this.displaySphere = false;
-        this.displayCubeMap = false;
-        this.displayVehicle = false;
+        this.displayCubeMap = true;
+        this.displayVehicle = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -127,7 +127,10 @@ class MyScene extends CGFscene {
 
         if(this.displayCubeMap) {
             this.cubeMaterial.apply();
+            this.pushMatrix();
+            this.scale(50, 50, 50);
             this.cubeMap.display();
+            this.popMatrix();
         }
 
         if(this.displayVehicle){
