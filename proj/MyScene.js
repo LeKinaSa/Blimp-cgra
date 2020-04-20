@@ -40,13 +40,28 @@ class MyScene extends CGFscene {
         this.cilinderMaterial.setShininess(10.0);
         this.cilinderMaterial.loadTexture('images/earth.jpg');
         this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        /*
+        this.cubeMapMaterial2 = new CGFappearance(this);
+        this.cubeMapMaterial2 = new CGFappearance(this.scene);
+        this.cubeMapMaterial2.setAmbient(1,1,1,1);
+        this.cubeMapMaterial2.loadTexture('images/cubeMap2.png');
+        this.cubeMapMaterial2.setTextureWrap('REPEAT', 'REPEAT');
 
+        this.cubeMapMaterial3 = new CGFappearance(this);
+        this.cubeMapMaterial3 = new CGFappearance(this.scene);
+        this.cubeMapMaterial3.setAmbient(1,1,1,1);
+        this.cubeMapMaterial3.loadTexture('images/cubeMap3.png');
+        this.cubeMapMaterial3.setTextureWrap('REPEAT', 'REPEAT');
+        */
 
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCilinder = false;
         this.displaySphere = false;
-        this.displayCubeMap = false;
+        this.displayCubeMap1 = false;
+        //this.displayCubeMap2 = false;
+        //this.displayCubeMap3 = false;
+        this.displayVehicle = false;
 
         this.sphereTexture = new CGFappearance(this);
         this.sphereTexture.setAmbient(0.1, 0.1, 0.1, 1);
@@ -102,11 +117,35 @@ class MyScene extends CGFscene {
         }
 
 
-        if(this.displayCubeMap){
+        if(this.displayCubeMap1){
+            this.cubeMap.display();
+        }
+/*
+        if(this.cubeMapMateria2){
+            this.cubeMap.top.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.bottom.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.back.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.front.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.left.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.right.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMapMaterial2.apply();
             this.cubeMap.display();
         }
 
-        this.vehicle.display();
+        if(this.cubeMapMateria3){
+            this.cubeMap.top.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.bottom.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.back.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.front.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.left.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMap.right.updateTexCoords([1.00, 0.00, 0.50, 0.50, 1.00, 1.00]);
+            this.cubeMapMaterial3.apply();
+            this.cubeMap.display();
+        }
+*/
+        if(this.displayVehicle){
+            this.vehicle.display();
+        }
 
 
         if(this.displayCilinder){
