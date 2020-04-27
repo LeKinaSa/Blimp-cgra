@@ -54,9 +54,9 @@ class MyScene extends CGFscene {
         this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
         
         this.cubeMaterial = new CGFappearance(this);
-        this.cubeMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.cubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.cubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.cubeMaterial.setAmbient(1, 1, 1, 1);
+        this.cubeMaterial.setDiffuse(0, 0, 0, 1);
+        this.cubeMaterial.setSpecular(0, 0, 0, 1);
         this.cubeMaterial.setShininess(10.0);
         this.cubeMaterial.loadTexture('images/cubeMap1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
