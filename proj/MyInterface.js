@@ -26,6 +26,9 @@ class MyInterface extends CGFinterface {
         // List Box to select Cube Map Texture
         this.gui.add(this.scene, 'selectedTexture', this.scene.cubeTextureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
 
+        // Sliders
+        this.gui.add(this.scene, 'speedFactor', 0.1, 10.0).name('Speed Factor');
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale');
         return true;
     }
 
