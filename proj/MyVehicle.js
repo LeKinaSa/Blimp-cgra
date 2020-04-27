@@ -14,6 +14,10 @@ class MyVehicle extends CGFobject {
 	initBuffers() {
         //this.pyramid  = new MyPyramid(this.scene, 8, 4);
         this.wingTop = new MyWing(this.scene);
+        this.wingBot = new MyWing(this.scene);
+        this.wingLeft = new MyWing(this.scene);
+        this.wingRight = new MyWing(this.scene);
+        this.body = new MyBody(this.scene);
     }
     
     initMaterials() {
