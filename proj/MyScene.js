@@ -123,7 +123,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
 
-        if(this.displaySphere){
+        if(this.displaySphere) {
             this.sphereTexture.apply();
             this.sphere.display();
         }
