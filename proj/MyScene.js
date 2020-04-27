@@ -61,9 +61,11 @@ class MyScene extends CGFscene {
         this.cubeMaterial.loadTexture('images/texture1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.jpg');
+
+        this.cubeTexture1 = new CGFtexture(this, 'images/cubemap.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
-        this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.jpg');
+        this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
+
         
 
         this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
