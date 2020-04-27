@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.speedFactor = 1;
-        this.scaleFactor = 3; // TODO : 1
+        this.scaleFactor = 1;
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -58,11 +58,11 @@ class MyScene extends CGFscene {
         this.cubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.cubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.cubeMaterial.setShininess(10.0);
-        this.cubeMaterial.loadTexture('images/texture1.png');
+        this.cubeMaterial.loadTexture('images/cubeMap1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
 
-        this.cubeTexture1 = new CGFtexture(this, 'images/cubemap.png');
+        this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
 
