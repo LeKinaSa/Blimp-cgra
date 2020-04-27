@@ -23,6 +23,9 @@ class MyScene extends CGFscene {
         
         this.enableTextures(true);
 
+        this.speedFactor = 1;
+        this.scaleFactor = 1;
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.sphere = new MySphere(this, 16, 8);
@@ -51,15 +54,16 @@ class MyScene extends CGFscene {
         this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
         
         this.cubeMaterial = new CGFappearance(this);
-        this.cubeMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.cubeMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.cubeMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.cubeMaterial.setAmbient(1, 1, 1, 1);
+        this.cubeMaterial.setDiffuse(0, 0, 0, 1);
+        this.cubeMaterial.setSpecular(0, 0, 0, 1);
         this.cubeMaterial.setShininess(10.0);
-        this.cubeMaterial.loadTexture('images/texture1.png');
+        this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1);
+        this.cubeMaterial.loadTexture('images/cubeMap1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
 
-        this.cubeTexture1 = new CGFtexture(this, 'images/cubemap.png');
+        this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
 
@@ -95,7 +99,28 @@ class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
+        this.checkKeys();
         //To be done...
+    }
+
+    checkKeys() {
+        var text = "Keys Pressed: ";
+        var keysPressed = false;
+
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            text += "W ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyS")) {
+            text += "S ";
+            keysPressed = true;
+        }
+
+        if (keysPressed) {
+            console.log(text);
+        }
     }
 
     updateAppliedTexture() {
@@ -122,7 +147,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
 
-        if(this.displaySphere){
+        if(this.displaySphere) {
             this.sphereTexture.apply();
             this.sphere.display();
         }
@@ -135,8 +160,11 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        if(this.displayVehicle){
+        if(this.displayVehicle) {
+            this.pushMatrix();
+            this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
             this.vehicle.display();
+            this.popMatrix();
         }
 
 

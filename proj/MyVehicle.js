@@ -12,7 +12,12 @@ class MyVehicle extends CGFobject {
     }
     
 	initBuffers() {
-        this.pyramid  = new MyPyramid(this.scene, 8, 4);
+        //this.pyramid  = new MyPyramid(this.scene, 8, 4);
+        this.wingTop = new MyWing(this.scene);
+        this.wingBot = new MyWing(this.scene);
+        this.wingLeft = new MyWing(this.scene);
+        this.wingRight = new MyWing(this.scene);
+        this.body = new MyBody(this.scene);
     }
     
     initMaterials() {
@@ -28,12 +33,8 @@ class MyVehicle extends CGFobject {
         
     }
 
-    enableNormalViz() {
-        this.pyramid.enableNormalViz();
-    }
-
     display() {
-        this.scene.pushMatrix();
+        /*this.scene.pushMatrix();
         this.material.apply();
 
         this.scene.translate(this.position[0], this.position[1], this.position[2]);
@@ -41,6 +42,10 @@ class MyVehicle extends CGFobject {
 
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.pyramid.display();
+        this.scene.popMatrix();*/
+        this.scene.pushMatrix();
+        this.material.apply();
+        this.wingTop.display();
         this.scene.popMatrix();
     }
 
@@ -55,7 +60,7 @@ class MyVehicle extends CGFobject {
     }
 
     accelerate(val) {
-        this.velocity = this.velocity + val;
+        this.velocity = this.velocity + this.scene.speedFactor * val;
     }
 
     reset() {
