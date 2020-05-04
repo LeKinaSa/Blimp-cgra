@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.speedFactor = 1;
-        this.scaleFactor = 1;
+        this.scaleFactor = 3; //TODO 1
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -162,7 +162,6 @@ class MyScene extends CGFscene {
 
         if(this.displayVehicle) {
             this.pushMatrix();
-            this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
             this.vehicle.display();
             this.popMatrix();
         }

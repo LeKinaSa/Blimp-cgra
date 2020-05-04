@@ -2,7 +2,7 @@ class MyVehicle extends CGFobject {
 	constructor(scene) {
         super(scene);
         
-        this.position = [0, 0, 0];
+        this.position = [0, 10, 0];
         this.velocity = 0;
         this.angle = 0;
         
@@ -12,20 +12,19 @@ class MyVehicle extends CGFobject {
     }
     
 	initBuffers() {
-        //this.pyramid  = new MyPyramid(this.scene, 8, 4);
-        this.wingTop = new MyWing(this.scene);
-        this.wingBot = new MyWing(this.scene);
-        this.wingLeft = new MyWing(this.scene);
+        this.wingTop   = new MyWing(this.scene);
+        this.wingBot   = new MyWing(this.scene);
+        this.wingLeft  = new MyWing(this.scene);
         this.wingRight = new MyWing(this.scene);
-        this.body = new MyBody(this.scene);
+        this.body      = new MyBody(this.scene);
     }
     
     initMaterials() {
-        // Orange Material
+        // Blue
         this.material = new CGFappearance(this.scene);
-        this.material.setAmbient (204/255, 124/255, 0/255, 1.0);
-        this.material.setDiffuse (  1/255,   1/255, 0/255, 1.0);
-        this.material.setSpecular(255/255, 155/255, 0/255, 1.0);
+        this.material.setAmbient (10/255, 10/255, 204/255, 1.0);
+        this.material.setDiffuse ( 0/255,  0/255, 100/255, 1.0);
+        this.material.setSpecular( 0/255,  0/255, 255/255, 1.0);
         this.material.setShininess(10.0);
     }
     
@@ -34,19 +33,48 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
-        /*this.scene.pushMatrix();
+        this.scene.pushMatrix(); // 1
         this.material.apply();
-
+        
         this.scene.translate(this.position[0], this.position[1], this.position[2]);
+        this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.angle, 0, 1, 0);
+        
+        this.scene.pushMatrix(); // 2
+        this.scene.scale(0.8, 0.8, 0.8);
 
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.pyramid.display();
-        this.scene.popMatrix();*/
         this.scene.pushMatrix();
-        this.material.apply();
+        this.scene.translate(0, 1.2, -1.2);
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.wingTop.display();
         this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, -1.2, -1.2);
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.scale(1, -1, 1);
+        this.wingBot.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-1.2, 0, -1.2);
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.scene.scale(1, -1, 1);
+        this.wingLeft.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(1.2, 0, -1.2);
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.wingRight.display();
+        this.scene.popMatrix();
+
+        this.scene.popMatrix(); // 2
+
+        this.body.display();
+        this.scene.popMatrix(); // 1
     }
 
     update() {
@@ -64,7 +92,7 @@ class MyVehicle extends CGFobject {
     }
 
     reset() {
-        this.position = [0, 0, 0];
+        this.position = [0, 10, 0];
         this.velocity = 0;
         this.angle = 0;
     }
