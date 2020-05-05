@@ -17,6 +17,7 @@ class MyVehicle extends CGFobject {
         this.wingLeft  = new MyWing(this.scene);
         this.wingRight = new MyWing(this.scene);
         this.body      = new MyBody(this.scene);
+        this.cabin     = new MyBody(this.scene);
     }
     
     initMaterials() {
@@ -36,44 +37,57 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix(); // 1
         this.material.apply();
         
-        this.scene.translate(this.position[0], this.position[1], this.position[2]);
+        //this.scene.translate(this.position[0], this.position[1], this.position[2]);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.angle, 0, 1, 0);
         
         this.scene.pushMatrix(); // 2
-        this.scene.scale(0.8, 0.8, 0.8);
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 1.2, -1.2);
+        this.scene.translate(0, 0.6, -1);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.scale(0.5, 0.5, 1);
         this.wingTop.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(0, -1.2, -1.2);
+        this.scene.translate(0, -0.6, -1);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(1, -1, 1);
+        this.scene.scale(0.5, 0.5, 1);
         this.wingBot.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-1.2, 0, -1.2);
+        this.scene.translate(-0.6, 0, -1);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.scale(1, -1, 1);
+        this.scene.scale(0.5, 0.5, 1);
         this.wingLeft.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(1.2, 0, -1.2);
+        this.scene.translate(0.6, 0, -1);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.scene.scale(0.5, 0.5, 1);
         this.wingRight.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix(); // 2
-
+        
+        this.scene.pushMatrix();
+        this.scene.scale(0.5, 0.5, 1);
         this.body.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, -0.6, 0.2);
+        this.scene.scale(0.2, 0.2, 0.4);
+        this.cabin.display();
+        this.scene.popMatrix();
+
         this.scene.popMatrix(); // 1
     }
 
