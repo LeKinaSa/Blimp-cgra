@@ -92,9 +92,10 @@ class MyVehicle extends CGFobject {
     }
 
     update() {
-        this.position[0] = this.position[0] + this.velocity * (-Math.sin(this.angle));  // X
+        console.log("update position");
+        this.position[0] = this.position[0] + this.velocity * (-Math.sin(-this.angle));  // X
         this.position[1] = this.position[1];                                            // Y
-        this.position[2] = this.position[2] + this.velocity * Math.cos(this.angle);     // Z
+        this.position[2] = this.position[2] + this.velocity * Math.cos(-this.angle);     // Z
     }
 
     turn(val) {
