@@ -37,7 +37,7 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix(); // 1
         this.material.apply();
         
-        //this.scene.translate(this.position[0], this.position[1], this.position[2]);
+        this.scene.translate(this.position[0], this.position[1], this.position[2]);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.angle, 0, 1, 0);
         
