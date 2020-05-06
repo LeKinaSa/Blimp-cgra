@@ -24,6 +24,7 @@ class MyVehicle extends CGFobject {
         this.heliceRight = new MyHelice(this.scene);
         this.centerRight = new MySphere(this.scene, 16, 16);
         this.centerLeft  = new MySphere(this.scene, 16, 16);
+        this.heliceAngle = 0;
     }
     
     initMaterials() {
@@ -52,7 +53,15 @@ class MyVehicle extends CGFobject {
 
         // Wing Top
         this.scene.pushMatrix();
-        this.scene.translate(0, 0.5, -0.7);
+        this.scene.translate(0, 0.45, -0.7);
+        if (this.scene.direction == this.scene.directions['Right']) {
+            // Rudders go Left -> Wing go Left
+            this.scene.rotate(-Math.PI/6, 0, 0, 1);
+        }
+        else if (this.scene.direction == this.scene.directions['Left']) {
+            // Rudders go Right -> Wing go Right
+            this.scene.rotate(Math.PI/6, 0, 0, 1);
+        }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(0.4, 0.4, 1);
         this.wingTop.display();
@@ -60,7 +69,15 @@ class MyVehicle extends CGFobject {
 
         // Wing Bot
         this.scene.pushMatrix();
-        this.scene.translate(0, -0.5, -0.7);
+        this.scene.translate(0, -0.45, -0.7);
+        if (this.scene.direction == this.scene.directions['Right']) {
+            // Rudders go Left -> Wing go Left
+            this.scene.rotate(Math.PI/6, 0, 0, 1);
+        }
+        else if (this.scene.direction == this.scene.directions['Left']) {
+            // Rudders go Right -> Wing go Right
+            this.scene.rotate(-Math.PI/6, 0, 0, 1);
+        }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(1, -1, 1);
         this.scene.scale(0.4, 0.4, 1);
@@ -71,7 +88,7 @@ class MyVehicle extends CGFobject {
 
         // Wing Left
         this.scene.pushMatrix();
-        this.scene.translate(-0.5, 0, -0.7);
+        this.scene.translate(-0.45, 0, -0.7);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.scale(1, -1, 1);
@@ -81,7 +98,7 @@ class MyVehicle extends CGFobject {
 
         // Wing Right
         this.scene.pushMatrix();
-        this.scene.translate(0.5, 0, -0.7);
+        this.scene.translate(0.45, 0, -0.7);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.scale(0.4, 0.4, 1);
@@ -119,6 +136,7 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.15, -0.55, -0.28);
         this.scene.scale(0.15, 0.125, 0.125);
+        this.scene.rotate(this.heliceAngle, 0, 0, 1);
         this.heliceRight.display();
         this.scene.popMatrix();
 
@@ -126,6 +144,7 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-0.15, -0.55, -0.28);
         this.scene.scale(0.15, 0.125, 0.125);
+        this.scene.rotate(this.heliceAngle, 0, 0, 1);
         this.heliceLeft.display();
         this.scene.popMatrix();
 
@@ -147,10 +166,10 @@ class MyVehicle extends CGFobject {
     }
 
     update() {
-        console.log("update position");
-        this.position[0] = this.position[0] + this.velocity * (-Math.sin(-this.angle));  // X
-        this.position[1] = this.position[1];                                            // Y
-        this.position[2] = this.position[2] + this.velocity * Math.cos(-this.angle);     // Z
+        this.position[0] = this.position[0] + this.velocity * (-Math.sin(-this.angle));     // X
+        this.position[1] = this.position[1];                                                // Y
+        this.position[2] = this.position[2] + this.velocity * Math.cos(-this.angle);        // Z
+        this.heliceAngle = this.heliceAngle + 1.5 * this.velocity;
     }
 
     turn(val) {

@@ -73,6 +73,8 @@ class MyScene extends CGFscene {
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
         this.cubeTextureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
         this.selectedTexture = 0;
+        this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
+        this.direction = this.directions['None'];
         
         //Objects connected to MyInterface
         this.displayAxis = false;
@@ -107,6 +109,7 @@ class MyScene extends CGFscene {
     checkKeys() {
         var text = "Keys Pressed: ";
         var keysPressed = false;
+        this.direction = this.directions['None'];
 
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
@@ -123,12 +126,14 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyA")) {
             this.vehicle.turn(0.05);
+            this.direction = this.directions['Left'];
             text += "A ";
             keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
             this.vehicle.turn(-0.05);
+            this.direction = this.directions['Right'];
             text += "D ";
             keysPressed = true;
         }
