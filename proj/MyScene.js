@@ -100,17 +100,18 @@ class MyScene extends CGFscene {
     }
 
     // called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        this.checkKeys();
+    update(t) {
+        this.checkKeys(t);
         this.vehicle.update();
-        //To be done...
     }
 
-    checkKeys() {
+    checkKeys(t) {
         var text = "Keys Pressed: ";
         var keysPressed = false;
-        this.direction = this.directions['None'];
-
+        if (!this.vehicle.autopilot) {
+            this.direction = this.directions['None'];
+        }
+        
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             this.vehicle.accelerate(0.01);
@@ -125,14 +126,14 @@ class MyScene extends CGFscene {
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
-            this.vehicle.turn(0.05);
+            this.vehicle.turn(-0.05);
             this.direction = this.directions['Left'];
             text += "A ";
             keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
-            this.vehicle.turn(-0.05);
+            this.vehicle.turn(0.05);
             this.direction = this.directions['Right'];
             text += "D ";
             keysPressed = true;
@@ -145,7 +146,7 @@ class MyScene extends CGFscene {
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
-            // TODO;
+            this.vehicle.startAutoPilot(t);
             text += "P ";
             keysPressed = true;
         }

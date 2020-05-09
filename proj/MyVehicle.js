@@ -165,24 +165,73 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix(); // 1
     }
 
-    update() {
-        this.position[0] = this.position[0] + this.velocity * (-Math.sin(-this.angle));     // X
-        this.position[1] = this.position[1];                                                // Y
-        this.position[2] = this.position[2] + this.velocity * Math.cos(-this.angle);        // Z
-        this.heliceAngle = this.heliceAngle + 1.5 * this.velocity;
+    update(t) {
+        if (this.autopilot) {
+            var deltaT = (t - this.previousT) / 1000.0;
+            this.previousT = t;
+
+            deltaT = 0.050; //TODO : remove
+            this.autopilotAngle = this.autopilotAngle + this.angularSpeed * deltaT;
+            this.angle          = this.angle          + this.angularSpeed * deltaT;
+            this.position[0] = this.autopilotCenter[0] + 5 * Math.sin(this.autopilotAngle);     // X
+            this.position[1] = this.position[1];                                                // Y
+            this.position[2] = this.autopilotCenter[2] + 5 * Math.cos(this.autopilotAngle);     // Z
+            console.log("P : ", this.position);
+        }
+        else {
+            this.position[0] = this.position[0] + this.velocity * Math.sin(this.angle);     // X
+            this.position[1] = this.position[1];                                                // Y
+            this.position[2] = this.position[2] + this.velocity * Math.cos(this.angle);      // Z
+        }
+        this.heliceAngle = this.heliceAngle + 1.2 * this.velocity;
     }
 
     turn(val) {
-        this.angle = this.angle + val;
+        if (!this.autopilot) {
+            this.angle = this.angle + val;
+        }
     }
 
     accelerate(val) {
-        this.velocity = this.velocity + this.scene.speedFactor * val;
+        if (!this.autopilot) {
+            this.velocity = this.velocity + this.scene.speedFactor * val;
+        }
     }
 
     reset() {
         this.position = [0, 10, 0];
         this.velocity = 0;
         this.angle = 0;
+        this.autopilot = false;
+    }
+
+    startAutoPilot(t) {
+        if (!this.autopilot) {
+            this.autopilot = true;
+            this.previousT = t;
+
+            var centripetalVector = [Math.sin(this.angle + Math.PI/2), 0, Math.cos(this.angle + Math.PI/2)];
+            this.autopilotCenter = [0, 0, 0];
+            this.autopilotCenter[0] = this.position[0] + centripetalVector[0] * 5.0;
+            this.autopilotCenter[1] = this.position[1] + centripetalVector[1] * 5.0;
+            this.autopilotCenter[2] = this.position[2] + centripetalVector[2] * 5.0;
+            
+            var tangentVector = [Math.sin(this.angle), 0, Math.cos(this.angle)];
+            var axis = [0, 0, 1];
+            this.autopilotAngle = this.angle + 3 * Math.PI / 2;
+            if (this.velocity >= 0) {
+                this.angularSpeed =  2.0 * Math.PI / 5.0;
+                
+            }
+            else {
+                this.angularSpeed = -2.0 * Math.PI / 5.0;
+            }
+
+            this.velocity = this.angularSpeed * 5;
+            console.log("V : ", this.velocity);
+            console.log("P : ", this.position);
+            
+            this.scene.direction = this.scene.directions['Left'];
+        }
     }
 }
