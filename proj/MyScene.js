@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.speedFactor = 1;
-        this.scaleFactor = 1;
+        this.scaleFactor = 6; //TODO 1
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -73,6 +73,8 @@ class MyScene extends CGFscene {
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
         this.cubeTextureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
         this.selectedTexture = 0;
+        this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
+        this.direction = this.directions['None'];
         
         //Objects connected to MyInterface
         this.displayAxis = false;
@@ -98,23 +100,54 @@ class MyScene extends CGFscene {
     }
 
     // called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        this.checkKeys();
-        //To be done...
+    update(t) {
+        this.checkKeys(t);
+        this.vehicle.update();
     }
 
-    checkKeys() {
+    checkKeys(t) {
         var text = "Keys Pressed: ";
         var keysPressed = false;
-
+        if (!this.vehicle.autopilot) {
+            this.direction = this.directions['None'];
+        }
+        
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
+            this.vehicle.accelerate(0.01);
             text += "W ";
             keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
+            this.vehicle.accelerate(-0.01);
             text += "S ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.vehicle.turn(-0.05);
+            this.direction = this.directions['Left'];
+            text += "A ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.vehicle.turn(0.05);
+            this.direction = this.directions['Right'];
+            text += "D ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.vehicle.reset();
+            text += "R ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.vehicle.startAutoPilot(t);
+            text += "P ";
             keysPressed = true;
         }
 
@@ -162,7 +195,6 @@ class MyScene extends CGFscene {
 
         if(this.displayVehicle) {
             this.pushMatrix();
-            this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
             this.vehicle.display();
             this.popMatrix();
         }

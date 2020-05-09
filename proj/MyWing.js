@@ -24,6 +24,10 @@ class MyWing extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
+        this.scene.translate(0, 0.5, 0);
+        this.scene.scale(1, -1, 1);
+
+        this.scene.pushMatrix();
         this.scene.translate(0.5, 0.5, 0);
         this.scene.scale(0.5, -0.5, 0.5);
         this.triangle1.display();
@@ -45,6 +49,8 @@ class MyWing extends CGFobject {
         this.scene.translate(-0.5, 0.5, 0);
         this.scene.scale(-1, 1, 1);
         this.square2.display();
+        this.scene.popMatrix();
+
         this.scene.popMatrix();
     }
 }
