@@ -176,12 +176,11 @@ class MyVehicle extends CGFobject {
             this.position[0] = this.autopilotCenter[0] + 5 * Math.sin(this.autopilotAngle);     // X
             this.position[1] = this.position[1];                                                // Y
             this.position[2] = this.autopilotCenter[2] + 5 * Math.cos(this.autopilotAngle);     // Z
-            console.log("P : ", this.position);
         }
         else {
-            this.position[0] = this.position[0] + this.velocity * Math.sin(this.angle);     // X
+            this.position[0] = this.position[0] + this.velocity * Math.sin(this.angle);         // X
             this.position[1] = this.position[1];                                                // Y
-            this.position[2] = this.position[2] + this.velocity * Math.cos(this.angle);      // Z
+            this.position[2] = this.position[2] + this.velocity * Math.cos(this.angle);         // Z
         }
         this.heliceAngle = this.heliceAngle + 1.2 * this.velocity;
     }
@@ -216,8 +215,6 @@ class MyVehicle extends CGFobject {
             this.autopilotCenter[1] = this.position[1] + centripetalVector[1] * 5.0;
             this.autopilotCenter[2] = this.position[2] + centripetalVector[2] * 5.0;
             
-            var tangentVector = [Math.sin(this.angle), 0, Math.cos(this.angle)];
-            var axis = [0, 0, 1];
             this.autopilotAngle = this.angle + 3 * Math.PI / 2;
             if (this.velocity >= 0) {
                 this.angularSpeed =  2.0 * Math.PI / 5.0;
@@ -226,10 +223,7 @@ class MyVehicle extends CGFobject {
             else {
                 this.angularSpeed = -2.0 * Math.PI / 5.0;
             }
-
             this.velocity = this.angularSpeed * 5;
-            console.log("V : ", this.velocity);
-            console.log("P : ", this.position);
             
             this.scene.direction = this.scene.directions['Left'];
         }
