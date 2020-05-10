@@ -28,9 +28,6 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.sphere = new MySphere(this, 16, 8);
-
-        this.cilinder = new MyCilinder(this, 40);
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
 
@@ -78,8 +75,6 @@ class MyScene extends CGFscene {
         
         //Objects connected to MyInterface
         this.displayAxis = false;
-        this.displayCilinder = false;
-        this.displaySphere = false;
         this.displayCubeMap = true;
         this.displayVehicle = true;
     }
@@ -179,12 +174,6 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-
-        if(this.displaySphere) {
-            this.sphereTexture.apply();
-            this.sphere.display();
-        }
-
         if(this.displayCubeMap) {
             this.cubeMaterial.apply();
             this.pushMatrix();
@@ -198,13 +187,6 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
-
-
-        if(this.displayCilinder){
-            this.cilinderMaterial.apply();
-            this.cilinder.display();
-        }
-        
 
         // ---- END Primitive drawing section
     }
