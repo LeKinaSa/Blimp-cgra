@@ -12,18 +12,10 @@ class MyVehicle extends CGFobject {
     }
     
 	initBuffers() {
-        this.wingTop     = new MyWing  (this.scene);
-        this.wingBot     = new MyWing  (this.scene);
-        this.wingLeft    = new MyWing  (this.scene);
-        this.wingRight   = new MyWing  (this.scene);
-        this.body        = new MySphere(this.scene, 16, 16);
-        this.cabin       = new MyBody  (this.scene);
-        this.motorLeft   = new MyBody  (this.scene);
-        this.motorRight  = new MyBody  (this.scene);
-        this.heliceLeft  = new MyHelice(this.scene);
-        this.heliceRight = new MyHelice(this.scene);
-        this.centerRight = new MySphere(this.scene, 16, 16);
-        this.centerLeft  = new MySphere(this.scene, 16, 16);
+        this.wing   = new MyWing  (this.scene);
+        this.sphere = new MySphere(this.scene, 16, 16);
+        this.oval   = new MyBody  (this.scene);
+        this.helice = new MyHelice(this.scene);
         this.heliceAngle = 0;
     }
     
@@ -64,7 +56,7 @@ class MyVehicle extends CGFobject {
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(0.4, 0.4, 1);
-        this.wingTop.display();
+        this.wing.display();
         this.scene.popMatrix();
 
         // Wing Bot
@@ -81,7 +73,7 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(1, -1, 1);
         this.scene.scale(0.4, 0.4, 1);
-        this.wingBot.display();
+        this.wing.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix(); // 2
@@ -93,7 +85,7 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.scale(1, -1, 1);
         this.scene.scale(0.4, 0.4, 1);
-        this.wingLeft.display();
+        this.wing.display();
         this.scene.popMatrix();
 
         // Wing Right
@@ -102,34 +94,34 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.scale(0.4, 0.4, 1);
-        this.wingRight.display();
+        this.wing.display();
         this.scene.popMatrix();
         
         // Body
         this.scene.pushMatrix();
         this.scene.scale(0.5, 0.5, 1);
-        this.body.display();
+        this.sphere.display();
         this.scene.popMatrix();
 
         // Cabin
         this.scene.pushMatrix();
         this.scene.translate(0, -0.5, 0.2);
         this.scene.scale(0.2, 0.2, 0.3);
-        this.cabin.display();
+        this.oval.display();
         this.scene.popMatrix();
 
         // Motor Right
         this.scene.pushMatrix();
         this.scene.translate(0.15, -0.55, -0.15);
         this.scene.scale(0.07, 0.07, 0.08);
-        this.motorRight.display();
+        this.oval.display();
         this.scene.popMatrix();
 
         // Motor Left
         this.scene.pushMatrix();
         this.scene.translate(-0.15, -0.55, -0.15);
         this.scene.scale(0.07, 0.07, 0.08);
-        this.motorLeft.display();
+        this.oval.display();
         this.scene.popMatrix();
 
         // Helice Right
@@ -137,7 +129,7 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0.15, -0.55, -0.28);
         this.scene.scale(0.15, 0.125, 0.125);
         this.scene.rotate(this.heliceAngle, 0, 0, 1);
-        this.heliceRight.display();
+        this.helice.display();
         this.scene.popMatrix();
 
         // Helice Left
@@ -145,21 +137,21 @@ class MyVehicle extends CGFobject {
         this.scene.translate(-0.15, -0.55, -0.28);
         this.scene.scale(0.15, 0.125, 0.125);
         this.scene.rotate(this.heliceAngle, 0, 0, 1);
-        this.heliceLeft.display();
+        this.helice.display();
         this.scene.popMatrix();
 
         // Helice Center Right
         this.scene.pushMatrix();
         this.scene.translate(0.15, -0.55, -0.28);
         this.scene.scale(0.02, 0.02, 0.02);
-        this.centerRight.display();
+        this.sphere.display();
         this.scene.popMatrix();
 
         // Helice Center Left
         this.scene.pushMatrix();
         this.scene.translate(-0.15, -0.55, -0.28);
         this.scene.scale(0.02, 0.02, 0.02);
-        this.centerLeft.display();
+        this.sphere.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix(); // 1
