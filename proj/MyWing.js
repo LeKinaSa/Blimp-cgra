@@ -8,7 +8,7 @@ class MyWing extends CGFobject {
     
 	initBuffers() {
         this.triangle = new MyTriangle(this.scene);
-        this.square = new MyQuad(this.scene);
+        this.square   = new MyQuad(this.scene);
     }
     
     initTextCoords() {
@@ -25,27 +25,31 @@ class MyWing extends CGFobject {
         this.scene.translate(0, 0.5, 0);
         this.scene.scale(1, -1, 1);
 
+        // Front Triangle
         this.scene.pushMatrix();
         this.scene.translate(0.5, 0.5, 0);
-        this.scene.scale(0.5, -0.5, 0.5);
+        this.scene.scale(0.5, -0.5, 1);
         this.triangle.display();
         this.scene.popMatrix();
 
+        // Back Triangle
         this.scene.pushMatrix();
         this.scene.translate(0.5, 0.5, 0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
-        this.scene.scale(0.5, 0.5, -0.5);
+        this.scene.scale(0.5, 0.5, -1);
         this.triangle.display();
         this.scene.popMatrix();
 
+        // Front Square
         this.scene.pushMatrix();
         this.scene.translate(-0.5, 0.5, 0);
         this.square.display();
         this.scene.popMatrix();
 
+        // Back Square
         this.scene.pushMatrix();
         this.scene.translate(-0.5, 0.5, 0);
-        this.scene.scale(-1, 1, 1);
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.square.display();
         this.scene.popMatrix();
 
