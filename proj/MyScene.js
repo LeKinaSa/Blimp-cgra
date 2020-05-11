@@ -34,22 +34,18 @@ class MyScene extends CGFscene {
 
         //------ Applied Material
         
-        this.sphereTexture = new CGFappearance(this);
-        this.sphereTexture.setAmbient(0.1, 0.1, 0.1, 1);
-        this.sphereTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.sphereTexture.setSpecular(0.1, 0.1, 0.1, 1);
-        this.sphereTexture.setShininess(10.0);
-        this.sphereTexture.loadTexture('images/earth.jpg');
-        this.sphereTexture.setTextureWrap('REPEAT', 'REPEAT');
-
-        this.cilinderMaterial = new CGFappearance(this);
-        this.cilinderMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.cilinderMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.cilinderMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.cilinderMaterial.setShininess(10.0);
-        this.cilinderMaterial.loadTexture('images/earth.jpg');
-        this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.terrainMap = new CGFtexture(this, "textures/terrainMap.jpg");
+        this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({ uSampler2: 1 });
         
+        this.terrainTexture = new CGFappearance(this);
+        this.terrainTexture.setAmbient(1, 1, 1, 1);
+        this.terrainTexture.setDiffuse(0, 0, 0, 1);
+        this.terrainTexture.setSpecular(0, 0, 0, 1);
+        this.terrainTexture.setShininess(10.0);
+        this.terrainTexture.loadTexture('images/terrainTexture.png');
+        this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
+
         this.cubeMaterial = new CGFappearance(this);
         this.cubeMaterial.setAmbient(1, 1, 1, 1);
         this.cubeMaterial.setDiffuse(0, 0, 0, 1);
@@ -59,24 +55,23 @@ class MyScene extends CGFscene {
         this.cubeMaterial.loadTexture('images/cubeMap1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-
         this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
 
-        
-
         this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
-        this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.cubeTextureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
+        this.cubeTextureIds = { 'Textura 1': 0, 'Textura 2': 1, 'Textura 3': 2 };
         this.selectedTexture = 0;
-        this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
-        this.direction = this.directions['None'];
         
         //Objects connected to MyInterface
         this.displayAxis = false;
         this.displayCubeMap = true;
         this.displayVehicle = true;
+
+        // Vehicle Direction
+        this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
+        this.direction = this.directions['None'];
+        
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -187,6 +182,14 @@ class MyScene extends CGFscene {
             this.vehicle.display();
             this.popMatrix();
         }
+        
+        // apply shader
+        this.terrainTexture.apply();
+        this.setActiveShader(this.terrainTexture);
+        this.terrainMap.bind(1);
+
+        // restore default shader
+		this.setActiveShader(this.defaultShader);
 
         // ---- END Primitive drawing section
     }
