@@ -43,20 +43,6 @@ class MyScene extends CGFscene {
         this.direction = this.directions['None'];
 
         // Materials and Textures
-        
-        this.terrainMap = new CGFtexture(this, "images/terrainMap.jpg");
-        this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-        this.terrainShader.setUniformsValues({ uSampler2: 1 });
-        
-        this.terrainTexture = new CGFappearance(this);
-        this.terrainTexture.setAmbient(1, 1, 1, 1);
-        this.terrainTexture.setDiffuse(0, 0, 0, 1);
-        this.terrainTexture.setSpecular(0, 0, 0, 1);
-        this.terrainTexture.setShininess(10.0);
-        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1);
-        this.terrainTexture.loadTexture('images/terrainTexture.jpg');
-        this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
-
         this.cubeMaterial = new CGFappearance(this);
         this.cubeMaterial.setAmbient(1, 1, 1, 1);
         this.cubeMaterial.setDiffuse(0, 0, 0, 1);
@@ -72,8 +58,31 @@ class MyScene extends CGFscene {
         this.cubeTexture4 = new CGFtexture(this, 'images/cubeMap4.png');
 
         this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3, this.cubeTexture4];
-        this.cubeTextureIds = { 'Textura 1': 0, 'Textura 2': 1, 'Textura 3': 2 , 'Textura 4': 3 };
-        this.selectedTexture = 0;
+        this.cubeTextureIds = { 'Sky': 0, 'Desert': 1, 'Ocean': 2 , 'Test': 3 };
+        this.selectedCubeMapTexture = 0;
+
+        this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({ uSampler2: 1 });
+        
+        this.terrainTexture = new CGFappearance(this);
+        this.terrainTexture.setAmbient(1, 1, 1, 1);
+        this.terrainTexture.setDiffuse(0, 0, 0, 1);
+        this.terrainTexture.setSpecular(0, 0, 0, 1);
+        this.terrainTexture.setShininess(10.0);
+        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1);
+        this.terrainTexture.loadTexture('images/terrainTexture.png');
+        this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.terrainMap1 = new CGFtexture(this, "images/terrainMap.png");
+        this.terrainMap2 = new CGFtexture(this, "images/forestMap.png");
+
+        this.terrainTexture1 = new CGFtexture(this, 'images/terrainTexture.png');
+        this.terrainTexture2 = new CGFtexture(this, 'images/forestTexture.png');
+
+        this.terrainMaps = [this.terrainMap1, this.terrainMap2];
+        this.terrainTextures = [this.terrainTexture1, this.terrainTexture2];
+        this.terrainTextureIds = { 'Mountains': 0, 'Forest': 1};
+        this.selectedTerrainTexture = 0;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -149,7 +158,11 @@ class MyScene extends CGFscene {
     }
 
     updateAppliedTexture() {
-        this.cubeMaterial.setTexture(this.cubeTextures[this.selectedTexture]);
+        this.cubeMaterial.setTexture(this.cubeTextures[this.selectedCubeMapTexture]);
+    }
+
+    updateTerrain() {
+        this.terrainTexture.setTexture(this.terrainTextures[this.selectedTerrainTexture]);
     }
 
     display() {
@@ -189,10 +202,10 @@ class MyScene extends CGFscene {
             // apply shader
             this.terrainTexture.apply();
             this.setActiveShader(this.terrainShader);
-            this.terrainMap.bind(1);
+            this.terrainMaps[this.selectedTerrainTexture].bind(1);
 
             this.pushMatrix();
-            this.translate(0, -25, 0);
+            this.translate(0, -24.5, 0);
             this.scale(50, 1, 50);
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.terrain.display();
