@@ -43,7 +43,7 @@ class MyScene extends CGFscene {
         this.terrainTexture.setDiffuse(0, 0, 0, 1);
         this.terrainTexture.setSpecular(0, 0, 0, 1);
         this.terrainTexture.setShininess(10.0);
-        this.terrainTexture.loadTexture('images/terrainTexture.png');
+        this.terrainTexture.loadTexture('images/terrainTexture.jpg');
         this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         this.cubeMaterial = new CGFappearance(this);
@@ -52,15 +52,16 @@ class MyScene extends CGFscene {
         this.cubeMaterial.setSpecular(0, 0, 0, 1);
         this.cubeMaterial.setShininess(10.0);
         this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1);
-        this.cubeMaterial.loadTexture('images/cubeMap1.png');
+        this.cubeMaterial.loadTexture('images/cubeMap4.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
+        this.cubeTexture4 = new CGFtexture(this, 'images/cubeMap4.png');
 
-        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
-        this.cubeTextureIds = { 'Textura 1': 0, 'Textura 2': 1, 'Textura 3': 2 };
+        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3, this.cubeTexture4];
+        this.cubeTextureIds = { 'Textura 1': 0, 'Textura 2': 1, 'Textura 3': 2 , 'Textura 4': 3 };
         this.selectedTexture = 0;
         
         //Objects connected to MyInterface
@@ -184,12 +185,12 @@ class MyScene extends CGFscene {
         }
         
         // apply shader
-        this.terrainTexture.apply();
+        /*this.terrainTexture.apply();
         this.setActiveShader(this.terrainTexture);
         this.terrainMap.bind(1);
 
         // restore default shader
-		this.setActiveShader(this.defaultShader);
+		this.setActiveShader(this.defaultShader);*/
 
         // ---- END Primitive drawing section
     }

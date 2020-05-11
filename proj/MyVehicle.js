@@ -49,13 +49,6 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
-        /*
-        this.blue.apply();
-        this.scene.scale(10, 10, 10);
-        this.wing.display();
-        */
-        
-        //this.scene.scale(10, 10, 10);
         this.scene.pushMatrix(); // 1
         this.blue.apply();
         
@@ -190,7 +183,6 @@ class MyVehicle extends CGFobject {
             var deltaT = (t - this.previousT) / 1000.0;
             this.previousT = t;
 
-            deltaT = 0.050; //TODO : remove
             this.autopilotAngle = this.autopilotAngle + this.angularSpeed * deltaT;
             this.angle          = this.angle          + this.angularSpeed * deltaT;
             this.position[0] = this.autopilotCenter[0] + 5 * Math.sin(this.autopilotAngle);     // X
