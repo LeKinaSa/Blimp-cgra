@@ -19,11 +19,13 @@ class MyInterface extends CGFinterface {
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'displayCubeMap').name('Display CubeMap');
+        this.gui.add(this.scene, 'displayTerrain').name('Display Terrain');
         this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
 
         // List Box to select Cube Map Texture
-        this.gui.add(this.scene, 'selectedTexture', this.scene.cubeTextureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
-
+        this.gui.add(this.scene, 'selectedCubeMapTexture', this.scene.cubeTextureIds).name('Selected Cube Map').onChange(this.scene.updateAppliedTexture.bind(this.scene));
+        this.gui.add(this.scene, 'selectedTerrainTexture', this.scene.terrainTextureIds).name('Selected Terrain').onChange(this.scene.updateTerrain.bind(this.scene));
+        this.gui.add(this.scene, 'selectedVehicleTexture', this.scene.vehicleTextureIds).name('Selected Vehicle Texture');
         // Sliders
         this.gui.add(this.scene, 'speedFactor', 0.1, 10.0).name('Speed Factor');
         //TODO : this.gui.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale');
