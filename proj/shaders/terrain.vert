@@ -13,6 +13,6 @@ varying vec2 vTextureCoord;
 void main() {
     vTextureCoord = aTextureCoord;
     vec4 height_map = texture2D(uSampler2, aTextureCoord);
-    vec3 offsetCoords = vec3(0.0, 0.0, height_map.b / 8.0);
+    vec3 offsetCoords = vec3(0.0, 0.0, fract(height_map.b) * 8.0);
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offsetCoords, 1.0);
 }

@@ -193,7 +193,7 @@ class MyScene extends CGFscene {
 
             this.pushMatrix();
             this.translate(0, -25, 0);
-            this.scale(50, 50, 50);
+            this.scale(50, 1, 50);
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.terrain.display();
             this.popMatrix();
