@@ -81,8 +81,11 @@ class MyScene extends CGFscene {
 
         this.terrainMaps = [this.terrainMap1, this.terrainMap2];
         this.terrainTextures = [this.terrainTexture1, this.terrainTexture2];
-        this.terrainTextureIds = { 'Mountains': 0, 'Forest': 1};
+        this.terrainTextureIds = { 'Mountains': 0, 'Forest': 1 };
         this.selectedTerrainTexture = 0;
+
+        this.selectedVehicleTexture = 0;
+        this.vehicleTextureIds = { 'Blimp': 0, 'Watermelon': 1 };
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);

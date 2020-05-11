@@ -20,14 +20,15 @@ class MyVehicle extends CGFobject {
     }
     
     initMaterials() {
+        // --- BLIMP --- //
         // Texture
-        this.texture = new CGFappearance(this.scene);
-        this.texture.setAmbient (204/255, 204/255, 204/255, 1.0);
-        this.texture.setDiffuse (100/255, 100/255, 100/255, 1.0);
-        this.texture.setSpecular(255/255, 255/255, 255/255, 1.0);
-        this.texture.setShininess(10.0);
-        this.texture.loadTexture('images/vehicleTexture.png');
-        this.texture.setTextureWrap('REPEAT', 'REPEAT');
+        this.blimpTexture = new CGFappearance(this.scene);
+        this.blimpTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.blimpTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.blimpTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
+        this.blimpTexture.setShininess(10.0);
+        this.blimpTexture.loadTexture('images/vehicleTexture1.png');
+        this.blimpTexture.setTextureWrap('REPEAT', 'REPEAT');
         
         // Blue
         this.blue = new CGFappearance(this.scene);
@@ -42,6 +43,30 @@ class MyVehicle extends CGFobject {
         this.grey.setDiffuse ( 30/255,  30/255,  30/255, 1.0);
         this.grey.setSpecular(120/255, 120/255, 120/255, 1.0);
         this.grey.setShininess(10.0);
+
+        // --- WATERMELON --- //
+        // Texture
+        this.watermelonTexture = new CGFappearance(this.scene);
+        this.watermelonTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.watermelonTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.watermelonTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
+        this.watermelonTexture.setShininess(10.0);
+        this.watermelonTexture.loadTexture('images/vehicleTexture1.png');
+        this.watermelonTexture.setTextureWrap('REPEAT', 'REPEAT');
+
+        // Red
+        this.red = new CGFappearance(this.scene);
+        this.red.setAmbient (204/255, 10/255, 10/255, 1.0);
+        this.red.setDiffuse (100/255,  0/255,  0/255, 1.0);
+        this.red.setSpecular(255/255,  0/255,  0/255, 1.0);
+        this.red.setShininess(10.0);
+
+        // Green
+        this.green = new CGFappearance(this.scene);
+        this.green.setAmbient (10/255, 204/255, 10/255, 1.0);
+        this.green.setDiffuse ( 0/255, 100/255,  0/255, 1.0);
+        this.green.setSpecular( 0/255, 255/255,  0/255, 1.0);
+        this.green.setShininess(10.0);
     }
     
     initTextCoords() {
@@ -50,24 +75,28 @@ class MyVehicle extends CGFobject {
 
     display() {
         this.scene.pushMatrix(); // 1
-        this.blue.apply();
-        
         this.scene.translate(this.position[0], this.position[1], this.position[2]);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.angle, 0, 1, 0);
         
-        this.grey.apply(); // For the Wings
+        // --- Wing Texture --- //
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.grey.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.green.apply();
+        }
 
         // Wing Top
         this.scene.pushMatrix();
         this.scene.translate(0, 0.45, -0.7);
         if (this.scene.direction == this.scene.directions['Right']) {
             // Rudders go Left -> Wing go Left
-            this.scene.rotate(-Math.PI/6, 0, 0, 1);
+            this.scene.rotate(Math.PI/6, 0, 1, 0);
         }
         else if (this.scene.direction == this.scene.directions['Left']) {
             // Rudders go Right -> Wing go Right
-            this.scene.rotate(Math.PI/6, 0, 0, 1);
+            this.scene.rotate(-Math.PI/6, 0, 1, 0);
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(0.4, 0.4, 1);
@@ -79,11 +108,11 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, -0.45, -0.7);
         if (this.scene.direction == this.scene.directions['Right']) {
             // Rudders go Left -> Wing go Left
-            this.scene.rotate(Math.PI/6, 0, 0, 1);
+            this.scene.rotate(Math.PI/6, 0, 1, 0);
         }
         else if (this.scene.direction == this.scene.directions['Left']) {
             // Rudders go Right -> Wing go Right
-            this.scene.rotate(-Math.PI/6, 0, 0, 1);
+            this.scene.rotate(-Math.PI/6, 0, 1, 0);
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(Math.PI, 1, 0, 0);
@@ -110,7 +139,13 @@ class MyVehicle extends CGFobject {
         this.wing.display();
         this.scene.popMatrix();
         
-        this.texture.apply(); // For the Body
+        // --- Body Texture --- //
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.blimpTexture.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.watermelonTexture.apply(); // TODO
+        }
 
         // Body
         this.scene.pushMatrix();
@@ -119,7 +154,13 @@ class MyVehicle extends CGFobject {
         this.sphere.display();
         this.scene.popMatrix();
 
-        this.blue.apply(); // For the Cabin
+        // --- Cabin Texture --- //
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.blue.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.red.apply();
+        }
 
         // Cabin
         this.scene.pushMatrix();
@@ -128,8 +169,14 @@ class MyVehicle extends CGFobject {
         this.oval.display();
         this.scene.popMatrix();
 
-        this.grey.apply(); // For the Motors
-
+        // --- Motor Texture --- //
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.grey.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.green.apply();
+        }
+        
         // Motor Right
         this.scene.pushMatrix();
         this.scene.translate(0.15, -0.55, -0.15);
