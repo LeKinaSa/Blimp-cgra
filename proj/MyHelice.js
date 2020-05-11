@@ -7,10 +7,7 @@ class MyHelice extends CGFobject {
     }
     
 	initBuffers() {
-        this.rightUp   = new MyHeliceQuarter(this.scene);
-        this.rightDown = new MyHeliceQuarter(this.scene);
-        this.leftUp    = new MyHeliceQuarter(this.scene);
-        this.leftDown  = new MyHeliceQuarter(this.scene);
+        this.quarter   = new MyHeliceQuarter(this.scene);
     }
     
     initTextCoords() {
@@ -23,21 +20,25 @@ class MyHelice extends CGFobject {
     }
 
     display() {
-        this.rightUp.display();
+        // Right Up
+        this.quarter.display();
 
+        // Left Up
         this.scene.pushMatrix();
         this.scene.scale(-1, 1, 1);
-        this.leftUp.display();
+        this.quarter.display();
         this.scene.popMatrix();
 
+        // Right Down
         this.scene.pushMatrix();
         this.scene.scale(1, -1, 1);
-        this.rightDown.display();
+        this.quarter.display();
         this.scene.popMatrix();
 
+        // Left Down
         this.scene.pushMatrix();
         this.scene.scale(-1, -1, 1);
-        this.leftDown.display();
+        this.quarter.display();
         this.scene.popMatrix();
     }
 }

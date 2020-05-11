@@ -8,8 +8,7 @@ class MyBody extends CGFobject {
     
 	initBuffers() {
         this.cilinder = new MyCilinder(this.scene,   16);
-        this.front    = new MySphere(this.scene, 16, 16);
-        this.back     = new MySphere(this.scene, 16, 16);
+        this.sphere   = new MySphere(this.scene, 16, 16);
     }
     
     initTextCoords() {
@@ -27,12 +26,14 @@ class MyBody extends CGFobject {
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.translate(0, -0.5, 0);
         
+        // Front
         this.cilinder.display();
-        this.front.display();
+        this.sphere.display();
 
+        // Back
         this.scene.pushMatrix();
         this.scene.translate(0, 1, 0);
-        this.back.display();
+        this.sphere.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();

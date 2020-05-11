@@ -11,7 +11,7 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
-        //Background color
+        // Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
         this.gl.clearDepth(100.0);
@@ -26,62 +26,54 @@ class MyScene extends CGFscene {
         this.speedFactor = 1;
         this.scaleFactor = 6; //TODO 1
 
-        //Initialize scene objects
+        // Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.sphere = new MySphere(this, 16, 8);
-
-        this.cilinder = new MyCilinder(this, 40);
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
+        this.terrain = new MyPlane(this, 20, 0, 1, 0, 1);
 
+        // Objects connected to MyInterface
+        this.displayAxis = false;
+        this.displayCubeMap = true;
+        this.displayVehicle = true;
+        this.displayTerrain = true;
 
-        //------ Applied Material
+        // Vehicle Direction
+        this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
+        this.direction = this.directions['None'];
+
+        // Materials and Textures
         
-        this.sphereTexture = new CGFappearance(this);
-        this.sphereTexture.setAmbient(0.1, 0.1, 0.1, 1);
-        this.sphereTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.sphereTexture.setSpecular(0.1, 0.1, 0.1, 1);
-        this.sphereTexture.setShininess(10.0);
-        this.sphereTexture.loadTexture('images/earth.jpg');
-        this.sphereTexture.setTextureWrap('REPEAT', 'REPEAT');
-
-        this.cilinderMaterial = new CGFappearance(this);
-        this.cilinderMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.cilinderMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.cilinderMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.cilinderMaterial.setShininess(10.0);
-        this.cilinderMaterial.loadTexture('images/earth.jpg');
-        this.cilinderMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.terrainMap = new CGFtexture(this, "images/terrainMap.jpg");
+        this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({ uSampler2: 1 });
         
+        this.terrainTexture = new CGFappearance(this);
+        this.terrainTexture.setAmbient(1, 1, 1, 1);
+        this.terrainTexture.setDiffuse(0, 0, 0, 1);
+        this.terrainTexture.setSpecular(0, 0, 0, 1);
+        this.terrainTexture.setShininess(10.0);
+        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1);
+        this.terrainTexture.loadTexture('images/terrainTexture.jpg');
+        this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
+
         this.cubeMaterial = new CGFappearance(this);
         this.cubeMaterial.setAmbient(1, 1, 1, 1);
         this.cubeMaterial.setDiffuse(0, 0, 0, 1);
         this.cubeMaterial.setSpecular(0, 0, 0, 1);
         this.cubeMaterial.setShininess(10.0);
         this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1);
-        this.cubeMaterial.loadTexture('images/cubeMap1.png');
+        this.cubeMaterial.loadTexture('images/cubeMap4.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
 
         this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
+        this.cubeTexture4 = new CGFtexture(this, 'images/cubeMap4.png');
 
-        
-
-        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
-        this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.cubeTextureIds = { 'Textura1': 0, 'Textura2': 1, 'Textura3': 2 };
+        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3, this.cubeTexture4];
+        this.cubeTextureIds = { 'Textura 1': 0, 'Textura 2': 1, 'Textura 3': 2 , 'Textura 4': 3 };
         this.selectedTexture = 0;
-        this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
-        this.direction = this.directions['None'];
-        
-        //Objects connected to MyInterface
-        this.displayAxis = false;
-        this.displayCilinder = false;
-        this.displaySphere = false;
-        this.displayCubeMap = true;
-        this.displayVehicle = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -102,7 +94,7 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
         this.checkKeys(t);
-        this.vehicle.update();
+        this.vehicle.update(t);
     }
 
     checkKeys(t) {
@@ -179,13 +171,7 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-
-        if(this.displaySphere) {
-            this.sphereTexture.apply();
-            this.sphere.display();
-        }
-
-        if(this.displayCubeMap) {
+        if (this.displayCubeMap) {
             this.cubeMaterial.apply();
             this.pushMatrix();
             this.scale(50, 50, 50);
@@ -193,19 +179,27 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        if(this.displayVehicle) {
+        if (this.displayVehicle) {
             this.pushMatrix();
             this.vehicle.display();
             this.popMatrix();
         }
-
-
-        if(this.displayCilinder){
-            this.cilinderMaterial.apply();
-            this.cilinder.display();
-        }
         
+        if (this.displayTerrain) {
+            // apply shader
+            this.terrainTexture.apply();
+            this.setActiveShader(this.terrainShader);
+            this.terrainMap.bind(1);
 
+            this.pushMatrix();
+            this.translate(0, -25, 0);
+            this.scale(50, 1, 50);
+            this.rotate(-Math.PI/2, 1, 0, 0);
+            this.terrain.display();
+            this.popMatrix();
+            // restore default shader
+            this.setActiveShader(this.defaultShader);
+        }
         // ---- END Primitive drawing section
     }
 }
