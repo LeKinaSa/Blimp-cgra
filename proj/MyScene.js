@@ -92,7 +92,7 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
         this.checkKeys(t);
-        this.vehicle.update();
+        this.vehicle.update(t);
     }
 
     checkKeys(t) {
