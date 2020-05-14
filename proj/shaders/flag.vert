@@ -14,9 +14,9 @@ varying vec2 vTextureCoord;
 uniform float normScale;
 
 void main() {
-    vec2 offsetTex = vec2(speed * timeFactor / 190.0, 0);
-    vTextureCoord = aTextureCoord + offsetTex;
+    vec2 texCoords = aTextureCoord + vec2(speed * timeFactor / 200.0, 0);
+    vTextureCoord = aTextureCoord;
     vec3 offsetCoords = vec3(0, 0,
-        (fract(vTextureCoord[0] * 10.0) / 10.0) * (speed / (speed + 0.5)) * sin(timeFactor));
+        (fract(texCoords[0] * 10.0) / 10.0) * (speed / (speed + 0.5)) * sin(timeFactor)) / 1.25;
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offsetCoords, 1.0);
 }
