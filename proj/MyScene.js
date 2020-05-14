@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.speedFactor = 1;
-        this.scaleFactor = 1; //TODO 1
+        this.scaleFactor = 6; //TODO 1
 
         // Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -44,11 +44,11 @@ class MyScene extends CGFscene {
 
         // Materials and Textures
         this.cubeMaterial = new CGFappearance(this);
-        this.cubeMaterial.setAmbient(1, 1, 1, 1);
-        this.cubeMaterial.setDiffuse(0, 0, 0, 1);
-        this.cubeMaterial.setSpecular(0, 0, 0, 1);
+        this.cubeMaterial.setAmbient (1.0, 1.0, 1.0, 1.0);
+        this.cubeMaterial.setDiffuse (0.0, 0.0, 0.0, 1.0);
+        this.cubeMaterial.setSpecular(0.0, 0.0, 0.0, 1.0);
+        this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1.0);
         this.cubeMaterial.setShininess(10.0);
-        this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1);
         this.cubeMaterial.loadTexture('images/cubeMap1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -65,11 +65,11 @@ class MyScene extends CGFscene {
         this.terrainShader.setUniformsValues({ uSampler2: 1 });
         
         this.terrainTexture = new CGFappearance(this);
-        this.terrainTexture.setAmbient(1, 1, 1, 1);
-        this.terrainTexture.setDiffuse(0, 0, 0, 1);
-        this.terrainTexture.setSpecular(0, 0, 0, 1);
+        this.terrainTexture.setAmbient (1.0, 1.0, 1.0, 1.0);
+        this.terrainTexture.setDiffuse (0.0, 0.0, 0.0, 1.0);
+        this.terrainTexture.setSpecular(0.0, 0.0, 0.0, 1.0);
+        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1.0);
         this.terrainTexture.setShininess(10.0);
-        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1);
         this.terrainTexture.loadTexture('images/terrainTexture.png');
         this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -94,7 +94,8 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-48, 48, -20), vec3.fromValues(0, -5, 0));
+        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 20), vec3.fromValues(0, -5, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);

@@ -8,7 +8,6 @@ class MyVehicle extends CGFobject {
         
         this.initBuffers();
         this.initMaterials();
-        this.initTextCoords();
     }
     
 	initBuffers() {
@@ -16,6 +15,7 @@ class MyVehicle extends CGFobject {
         this.sphere = new MySphere(this.scene, 16, 16);
         this.oval   = new MyBody  (this.scene);
         this.helice = new MyHelice(this.scene);
+        this.flag   = new MyPlane (this.scene, 20, 0, 1, 0, 1);
         this.heliceAngle = 0;
     }
     
@@ -51,7 +51,7 @@ class MyVehicle extends CGFobject {
         this.watermelonTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.watermelonTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.watermelonTexture.setShininess(10.0);
-        this.watermelonTexture.loadTexture('images/vehicleTexture1.png');
+        this.watermelonTexture.loadTexture('images/vehicleTexture1.png'); // TODO
         this.watermelonTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         // Red
@@ -67,9 +67,19 @@ class MyVehicle extends CGFobject {
         this.green.setDiffuse ( 0/255, 100/255,  0/255, 1.0);
         this.green.setSpecular( 0/255, 255/255,  0/255, 1.0);
         this.green.setShininess(10.0);
-    }
-    
-    initTextCoords() {
+
+        // --- FLAG --- //
+        this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
+        this.flagShader.setUniformsValues({ speed: 0 });
+        this.flagShader.setUniformsValues({ timeFactor: 0 });
+
+        this.flagTexture = new CGFappearance(this.scene);
+        this.flagTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.flagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.flagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
+        this.flagTexture.setShininess(10.0);
+        this.flagTexture.loadTexture('images/earth.jpg'); // TODO
+        this.flagTexture.setTextureWrap('REPEAT', 'REPEAT');
         
     }
 
@@ -92,11 +102,11 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, 0.45, -0.7);
         if (this.scene.direction == this.scene.directions['Right']) {
             // Rudders go Left -> Wing go Left
-            this.scene.rotate(Math.PI/6, 0, 1, 0);
+            this.scene.rotate(-Math.PI/6, 0, 1, 0);
         }
         else if (this.scene.direction == this.scene.directions['Left']) {
             // Rudders go Right -> Wing go Right
-            this.scene.rotate(-Math.PI/6, 0, 1, 0);
+            this.scene.rotate(Math.PI/6, 0, 1, 0);
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(0.4, 0.4, 1);
@@ -108,11 +118,11 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, -0.45, -0.7);
         if (this.scene.direction == this.scene.directions['Right']) {
             // Rudders go Left -> Wing go Left
-            this.scene.rotate(Math.PI/6, 0, 1, 0);
+            this.scene.rotate(-Math.PI/6, 0, 1, 0);
         }
         else if (this.scene.direction == this.scene.directions['Left']) {
             // Rudders go Right -> Wing go Right
-            this.scene.rotate(-Math.PI/6, 0, 1, 0);
+            this.scene.rotate(Math.PI/6, 0, 1, 0);
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(Math.PI, 1, 0, 0);
@@ -144,7 +154,7 @@ class MyVehicle extends CGFobject {
             this.blimpTexture.apply();
         }
         else if (this.scene.selectedVehicleTexture == 1) {
-            this.watermelonTexture.apply(); // TODO
+            this.watermelonTexture.apply();
         }
 
         // Body
@@ -221,6 +231,26 @@ class MyVehicle extends CGFobject {
         this.sphere.display();
         this.scene.popMatrix();
 
+        // Flag
+        this.flagTexture.apply();
+        // apply shader
+        this.scene.setActiveShader(this.flagShader);
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, -2.2);
+        this.scene.scale(1, 0.8, 1.5);
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.flag.display();
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, -2.2);
+        this.scene.scale(1, 0.8, 1.5);
+        this.scene.scale(1, 1, -1);
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.flag.display();
+        this.scene.popMatrix();
+        // restore default shader
+        this.scene.setActiveShader(this.scene.defaultShader);
+
         this.scene.popMatrix(); // 1
         
     }
@@ -242,6 +272,9 @@ class MyVehicle extends CGFobject {
             this.position[2] = this.position[2] + this.velocity * Math.cos(this.angle);         // Z
         }
         this.heliceAngle = this.heliceAngle + 1.2 * this.velocity;
+
+        this.flagShader.setUniformsValues({ speed: this.velocity });
+        this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
     }
 
     turn(val) {
