@@ -31,12 +31,14 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyPlane(this, 20, 0, 1, 0, 1);
+        this.billboard = new MyBillboard(this, 0);
 
         // Objects connected to MyInterface
         this.displayAxis = false;
         this.displayCubeMap = true;
-        this.displayVehicle = true;
+        this.displayVehicle = false; //TODO
         this.displayTerrain = true;
+        this.displayBillboard = true;
 
         // Vehicle Direction
         this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
@@ -94,8 +96,9 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 20), vec3.fromValues(0, -5, 0));
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 20), vec3.fromValues(0, -5, 0));
+        // TODO : remove
+        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -216,6 +219,13 @@ class MyScene extends CGFscene {
             this.popMatrix();
             // restore default shader
             this.setActiveShader(this.defaultShader);
+        }
+
+        if (this.displayBillboard) {
+            this.pushMatrix();
+            //TODO
+            this.billboard.display();
+            this.popMatrix();
         }
         // ---- END Primitive drawing section
     }
