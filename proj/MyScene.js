@@ -32,6 +32,14 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyPlane(this, 20, 0, 1, 0, 1);
 
+        this.supplyArray = [];
+        this.supplyIndex = 0;
+        this.nSuppliesDelivered = 0;
+        
+        for (var i = 0; i < 5; i++){ 
+            this.supplyArray.push(new MySupply(this));
+        }
+
         // Objects connected to MyInterface
         this.displayAxis = false;
         this.displayCubeMap = true;
@@ -107,6 +115,8 @@ class MyScene extends CGFscene {
     update(t) {
         this.checkKeys(t);
         this.vehicle.update(t);
+        for (let supply of this.supplyArray)
+            supply.update(t);
     }
 
     checkKeys(t) {
@@ -146,12 +156,36 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
             text += "R ";
+            for (let supply of this.supplyArray)
+                supply.reset();
+
+            this.supplyIndex = 0;
             keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
             this.vehicle.startAutoPilot(t);
             text += "P ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyL")) {
+            /*
+            for(let supply in this.supplyArray){
+                supply.drop(this.vehicle.position[0], this.vehicle.position[2]);
+                this.nSuppliesDelivered++;
+
+            }
+            */
+            
+            if (this.supplyIndex < this.supplyArray.length) {
+                this.supplyArray[this.supplyIndex].drop(this.vehicle.position[0], this.vehicle.position[2]);
+                
+                this.supplyIndex++;
+                this.nSuppliesDelivered = this.supplyIndex;
+            }
+            
+            text += "L ";
             keysPressed = true;
         }
 
@@ -216,6 +250,14 @@ class MyScene extends CGFscene {
             // restore default shader
             this.setActiveShader(this.defaultShader);
         }
+
+        for (let supply of this.supplyArray){
+            this.pushMatrix();
+            supply.display();
+            this.popMatrix();
+        } 
+            
+
         // ---- END Primitive drawing section
     }
 }
