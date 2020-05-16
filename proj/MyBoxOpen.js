@@ -3,24 +3,24 @@ class MyBoxOpen extends CGFobject {
         super(scene);
 
         this.sphere = new MySphere(scene, 10, 10);
-        this.quad = new MyQuad(scene);
+        this.quad   = new MyQuad(scene);
 
         this.initMaterials();
     }
 
     initMaterials() {
         this.orangeTexture = new CGFappearance(this.scene);
-        this.orangeTexture.setAmbient(1, 1, 1, 1);
-        this.orangeTexture.setDiffuse(1.0, 1.0, 1.0, 1);
-        this.orangeTexture.setSpecular(1.0, 1.0, 1.0, 1);
+        this.orangeTexture.setAmbient (0.9, 0.9, 0.9, 1.0);
+        this.orangeTexture.setDiffuse (0.1, 0.1, 0.1, 1.0);
+        this.orangeTexture.setSpecular(0.1, 0.1, 0.1, 1.0);
         this.orangeTexture.setShininess(10000.0);
         this.orangeTexture.loadTexture('images/supplyOrangeTexture.jpg');
         this.orangeTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         this.box = new CGFappearance(this.scene);
-        this.box.setAmbient(0.9, 0.9, 0.9, 1);
-        this.box.setDiffuse(0.0, 0.0, 0.0, 1);
-        this.box.setSpecular(0.0, 0.0, 0.0, 1);
+        this.box.setAmbient (0.9, 0.9, 0.9, 1);
+        this.box.setDiffuse (0.1, 0.1, 0.1, 1);
+        this.box.setSpecular(0.1, 0.1, 0.1, 1);
         this.box.setShininess(10.0);
         this.box.loadTexture('images/insideBoxTexture.jpg');
         this.box.setTextureWrap('REPEAT', 'REPEAT');

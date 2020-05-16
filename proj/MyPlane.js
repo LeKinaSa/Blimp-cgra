@@ -54,8 +54,6 @@ class MyPlane extends CGFobject{
                 yCoord -= this.patchLength;
             }
         }
-
-        console.log(this.vertices);
         
 		// Generating indices
 		this.indices = [];
