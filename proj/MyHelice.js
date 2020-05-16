@@ -25,19 +25,20 @@ class MyHelice extends CGFobject {
 
         // Left Up
         this.scene.pushMatrix();
-        this.scene.scale(-1, 1, 1);
+        this.scene.rotate(Math.PI, 0, 1, 0);
         this.quarter.display();
         this.scene.popMatrix();
 
         // Right Down
         this.scene.pushMatrix();
-        this.scene.scale(1, -1, 1);
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.quarter.display();
         this.scene.popMatrix();
 
         // Left Down
         this.scene.pushMatrix();
-        this.scene.scale(-1, -1, 1);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.quarter.display();
         this.scene.popMatrix();
     }

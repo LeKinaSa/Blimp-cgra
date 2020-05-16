@@ -24,13 +24,14 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.speedFactor = 1;
-        this.scaleFactor = 1; //TODO 1
+        this.scaleFactor = 1;
 
         // Initialize scene objects
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
-        this.terrain = new MyPlane(this, 20, 0, 1, 0, 1);
+        this.terrain = new MyPlane(this, 20, 0, 1, 0, 1, false);
+        this.billboard = new MyBillboard(this, 0);
 
         this.supplyArray = [];
         this.supplyIndex = 0;
@@ -45,6 +46,8 @@ class MyScene extends CGFscene {
         this.displayCubeMap = true;
         this.displayVehicle = true;
         this.displayTerrain = true;
+        this.displayBillboard = true;
+        this.negativeSpeed = true;
 
         // Vehicle Direction
         this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
@@ -52,11 +55,11 @@ class MyScene extends CGFscene {
 
         // Materials and Textures
         this.cubeMaterial = new CGFappearance(this);
-        this.cubeMaterial.setAmbient(1, 1, 1, 1);
-        this.cubeMaterial.setDiffuse(0, 0, 0, 1);
-        this.cubeMaterial.setSpecular(0, 0, 0, 1);
+        this.cubeMaterial.setAmbient (1.0, 1.0, 1.0, 1.0);
+        this.cubeMaterial.setDiffuse (0.0, 0.0, 0.0, 1.0);
+        this.cubeMaterial.setSpecular(0.0, 0.0, 0.0, 1.0);
+        this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1.0);
         this.cubeMaterial.setShininess(10.0);
-        this.cubeMaterial.setEmission(0.9, 0.9, 0.9, 1);
         this.cubeMaterial.loadTexture('images/cubeMap1.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -73,11 +76,11 @@ class MyScene extends CGFscene {
         this.terrainShader.setUniformsValues({ uSampler2: 1 });
         
         this.terrainTexture = new CGFappearance(this);
-        this.terrainTexture.setAmbient(1, 1, 1, 1);
-        this.terrainTexture.setDiffuse(0, 0, 0, 1);
-        this.terrainTexture.setSpecular(0, 0, 0, 1);
+        this.terrainTexture.setAmbient (1.0, 1.0, 1.0, 1.0);
+        this.terrainTexture.setDiffuse (0.0, 0.0, 0.0, 1.0);
+        this.terrainTexture.setSpecular(0.0, 0.0, 0.0, 1.0);
+        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1.0);
         this.terrainTexture.setShininess(10.0);
-        this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1);
         this.terrainTexture.loadTexture('images/terrainTexture.png');
         this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -96,13 +99,18 @@ class MyScene extends CGFscene {
         this.vehicleTextureIds = { 'Blimp': 0, 'Watermelon': 1 };
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setPosition(24, 24, 15, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+        
+        this.lights[1].setPosition(-8, -15, -10);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].enable();
+        this.lights[1].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-48, 48, -20), vec3.fromValues(0, -5, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 30), vec3.fromValues(0, -5, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -212,6 +220,10 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        // update lights
+        this.lights[0].update();
+        this.lights[1].update();
         
         // Draw axis
         if (this.displayAxis)
@@ -229,12 +241,6 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        if (this.displayVehicle) {
-            this.pushMatrix();
-            this.vehicle.display();
-            this.popMatrix();
-        }
-        
         if (this.displayTerrain) {
             // apply shader
             this.terrainTexture.apply();
@@ -251,13 +257,30 @@ class MyScene extends CGFscene {
             this.setActiveShader(this.defaultShader);
         }
 
+        if (this.displayVehicle) {
+            this.pushMatrix();
+            this.vehicle.display();
+            this.popMatrix();
+        }
+
         for (let supply of this.supplyArray){
             this.pushMatrix();
             supply.display();
             this.popMatrix();
-        } 
-            
-
+        }
+        
+        if (this.displayBillboard) {
+            this.pushMatrix();
+            if (this.selectedTerrainTexture == 0) {
+                this.translate(-10, -15.7, -12);
+            }
+            else if (this.selectedTerrainTexture == 1) {
+                this.translate(-10, -19.6, -12.4);
+            }
+            this.rotate(Math.PI/4, 0, 1, 0);
+            this.billboard.display();
+            this.popMatrix();
+        }
         // ---- END Primitive drawing section
     }
 }

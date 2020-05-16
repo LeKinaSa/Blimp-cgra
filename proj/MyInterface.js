@@ -21,16 +21,17 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayCubeMap').name('Display CubeMap');
         this.gui.add(this.scene, 'displayTerrain').name('Display Terrain');
         this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
+        this.gui.add(this.scene, 'negativeSpeed').name('Reversing Vehicle');
 
         // List Box to select Cube Map Texture
         this.gui.add(this.scene, 'selectedCubeMapTexture', this.scene.cubeTextureIds).name('Selected Cube Map').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         this.gui.add(this.scene, 'selectedTerrainTexture', this.scene.terrainTextureIds).name('Selected Terrain').onChange(this.scene.updateTerrain.bind(this.scene));
         this.gui.add(this.scene, 'selectedVehicleTexture', this.scene.vehicleTextureIds).name('Selected Vehicle Texture');
+        
         // Sliders
         this.gui.add(this.scene, 'speedFactor', 0.1, 10.0).name('Speed Factor');
-        //TODO : this.gui.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale');
-        this.gui.add(this.scene, 'scaleFactor', 0.5, 6.0).name('Scale');
-
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 3.0).name('Scale');
+        
         this.initKeys();
         return true;
     }
