@@ -60,12 +60,12 @@ class MySupply extends CGFobject {
     display() {
         this.scene.pushMatrix();
         switch (this.state) {
-            case INACTIVE:
+            case SupplyStates.INACTIVE:
                 break;
-            case FALLING:
+            case SupplyStates.FALLING:
                 this.box.display();
                 break;
-            case LANDED:
+            case SupplyStates.LANDED:
                 this.openBox.display();
                 break;
             default:
