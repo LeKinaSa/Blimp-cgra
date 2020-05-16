@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.speedFactor = 1;
-        this.scaleFactor = 6; //TODO 1
+        this.scaleFactor = 1;
 
         // Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -44,9 +44,10 @@ class MyScene extends CGFscene {
         // Objects connected to MyInterface
         this.displayAxis = false;
         this.displayCubeMap = true;
-        this.displayVehicle = false; //TODO
+        this.displayVehicle = true;
         this.displayTerrain = true;
         this.displayBillboard = true;
+        this.negativeSpeed = true;
 
         // Vehicle Direction
         this.directions = {'None': 0, 'Right': 1, 'Left': 2 };
@@ -216,6 +217,8 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        this.lights[0].update();
         
         // Draw axis
         if (this.displayAxis)
@@ -233,12 +236,6 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        if (this.displayVehicle) {
-            this.pushMatrix();
-            this.vehicle.display();
-            this.popMatrix();
-        }
-        
         if (this.displayTerrain) {
             // apply shader
             this.terrainTexture.apply();
@@ -253,6 +250,12 @@ class MyScene extends CGFscene {
             this.popMatrix();
             // restore default shader
             this.setActiveShader(this.defaultShader);
+        }
+
+        if (this.displayVehicle) {
+            this.pushMatrix();
+            this.vehicle.display();
+            this.popMatrix();
         }
 
         for (let supply of this.supplyArray){

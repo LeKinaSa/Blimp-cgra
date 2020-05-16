@@ -286,6 +286,9 @@ class MyVehicle extends CGFobject {
     accelerate(val) {
         if (!this.autopilot) {
             this.velocity = this.velocity + this.scene.speedFactor * val;
+            if ((!this.scene.negativeSpeed) && (this.velocity < 0)) {
+                this.velocity = 0;
+            } 
         }
     }
 
