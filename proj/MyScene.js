@@ -79,18 +79,18 @@ class MyScene extends CGFscene {
         this.terrainTexture.setSpecular(0.0, 0.0, 0.0, 1.0);
         this.terrainTexture.setEmission(0.9, 0.9, 0.9, 1.0);
         this.terrainTexture.setShininess(10.0);
-        this.terrainTexture.loadTexture('images/terrainTexture.png');
+        this.terrainTexture.loadTexture('images/forestTexture.png');
         this.terrainTexture.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.terrainMap1 = new CGFtexture(this, "images/terrainMap.png");
-        this.terrainMap2 = new CGFtexture(this, "images/forestMap.png");
-
-        this.terrainTexture1 = new CGFtexture(this, 'images/terrainTexture.png');
-        this.terrainTexture2 = new CGFtexture(this, 'images/forestTexture.png');
-
+        this.terrainMap1 = new CGFtexture(this, "images/forestMap.png");
+        this.terrainMap2 = new CGFtexture(this, "images/terrainMap.png");
+        
+        this.terrainTexture1 = new CGFtexture(this, 'images/forestTexture.png');
+        this.terrainTexture2 = new CGFtexture(this, 'images/terrainTexture.png');
+        
         this.terrainMaps = [this.terrainMap1, this.terrainMap2];
         this.terrainTextures = [this.terrainTexture1, this.terrainTexture2];
-        this.terrainTextureIds = { 'Mountains': 0, 'Forest': 1 };
+        this.terrainTextureIds = { 'Forest': 0, 'Mountains': 1 };
         this.selectedTerrainTexture = 0;
 
         this.selectedVehicleTexture = 0;
@@ -102,13 +102,13 @@ class MyScene extends CGFscene {
         this.lights[0].enable();
         this.lights[0].update();
         
-        this.lights[1].setPosition(-8, -9.5, -10);
+        this.lights[1].setPosition(19, 12, 8);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[1].enable();
         this.lights[1].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(40, 48, 40), vec3.fromValues(0, -1.5, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(43, 20, 25), vec3.fromValues(0, -0.2, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -266,12 +266,12 @@ class MyScene extends CGFscene {
         if (this.displayBillboard) {
             this.pushMatrix();
             if (this.selectedTerrainTexture == 0) {
-                this.translate(-10, 8.8, -12);
+                this.translate(15.2, 4.8, 6);
             }
             else if (this.selectedTerrainTexture == 1) {
-                this.translate(-10, 4.9, -12.4);
+                this.translate(19, 7.8, 8);
             }
-            this.rotate(Math.PI/4, 0, 1, 0);
+            this.rotate(Math.PI/3, 0, 1, 0);
             this.billboard.display();
             this.popMatrix();
         }
