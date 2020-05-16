@@ -102,13 +102,13 @@ class MyScene extends CGFscene {
         this.lights[0].enable();
         this.lights[0].update();
         
-        this.lights[1].setPosition(-8, -15, -10);
+        this.lights[1].setPosition(-8, -9.5, -10);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[1].enable();
         this.lights[1].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 30), vec3.fromValues(0, -5, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(40, 48, 40), vec3.fromValues(0, -1.5, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -266,10 +266,10 @@ class MyScene extends CGFscene {
         if (this.displayBillboard) {
             this.pushMatrix();
             if (this.selectedTerrainTexture == 0) {
-                this.translate(-10, -15.7, -12);
+                this.translate(-10, 8.8, -12);
             }
             else if (this.selectedTerrainTexture == 1) {
-                this.translate(-10, -19.6, -12.4);
+                this.translate(-10, 4.9, -12.4);
             }
             this.rotate(Math.PI/4, 0, 1, 0);
             this.billboard.display();
