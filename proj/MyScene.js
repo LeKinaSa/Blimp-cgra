@@ -266,7 +266,13 @@ class MyScene extends CGFscene {
         
         if (this.displayBillboard) {
             this.pushMatrix();
-            //TODO
+            if (this.selectedTerrainTexture == 0) {
+                this.translate(-10, -15.7, -12);
+            }
+            else if (this.selectedTerrainTexture == 1) {
+                this.translate(-10, -19.6, -12.4);
+            }
+            this.rotate(Math.PI/4, 0, 1, 0);
             this.billboard.display();
             this.popMatrix();
         }
