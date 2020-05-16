@@ -20,7 +20,7 @@ class MyBillboard extends CGFobject {
         this.textTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.textTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.textTexture.setShininess(10.0);
-        this.textTexture.loadTexture('images/vehicleTexture1.png'); //TODO
+        this.textTexture.loadTexture('images/board.png');
         this.textTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         // Grey
