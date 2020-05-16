@@ -13,7 +13,10 @@ class MySupply extends CGFobject {
         this.position = [0, 9, 0];        
         this.previous_t = 0;
 
-        this.box = new MyBox(scene);
+        this.floorLevel = 0;
+        this.velocity   = 0;
+
+        this.box     = new MyBox    (scene);
         this.openBox = new MyBoxOpen(scene);
     }
 
@@ -30,7 +33,7 @@ class MySupply extends CGFobject {
         this.previous_t = t;
 
         if (this.state == SupplyStates.FALLING) {
-            this.position[1] -= elapsedTime * (15 / 3000.0);
+            this.position[1] -= elapsedTime/1000.0 * this.velocity;
             
             if (this.position[1] <= this.floorLevel) 
                 this.land();
@@ -43,6 +46,7 @@ class MySupply extends CGFobject {
             this.position[0] = dropPosition[0];
             this.position[1] = dropPosition[1];
             this.position[2] = dropPosition[2];
+            this.velocity = (this.position[2] - this.floorLevel) / 3.0;
         }
     }
 

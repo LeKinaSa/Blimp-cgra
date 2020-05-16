@@ -34,10 +34,8 @@ class MyScene extends CGFscene {
         this.billboard = new MyBillboard(this, 0);
 
         this.supplyArray = [];
-        this.supplyIndex = 0;
         this.nSuppliesDelivered = 0;
-        
-        for (var i = 0; i < 5; i++){ 
+        for (var i = 0; i < 5; i ++) {
             this.supplyArray.push(new MySupply(this));
         }
 
@@ -163,11 +161,12 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
-            text += "R ";
+            
             for (let supply of this.supplyArray)
                 supply.reset();
-
-            this.supplyIndex = 0;
+            this.nSuppliesDelivered = 0;
+            
+            text += "R ";            
             keysPressed = true;
         }
 
@@ -186,11 +185,9 @@ class MyScene extends CGFscene {
             }
             */
             
-            if (this.supplyIndex < this.supplyArray.length) {
-                this.supplyArray[this.supplyIndex].drop(this.vehicle.position[0], this.vehicle.position[2]);
-                
-                this.supplyIndex++;
-                this.nSuppliesDelivered = this.supplyIndex;
+            if (this.nSuppliesDelivered < this.supplyArray.length) {
+                this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position);
+                this.nSuppliesDelivered ++;
             }
             
             text += "L ";
@@ -248,7 +245,6 @@ class MyScene extends CGFscene {
             this.terrainMaps[this.selectedTerrainTexture].bind(1);
 
             this.pushMatrix();
-            this.translate(0, -24.5, 0);
             this.scale(50, 1, 50);
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.terrain.display();
@@ -264,9 +260,7 @@ class MyScene extends CGFscene {
         }
 
         for (let supply of this.supplyArray){
-            this.pushMatrix();
             supply.display();
-            this.popMatrix();
         }
         
         if (this.displayBillboard) {
