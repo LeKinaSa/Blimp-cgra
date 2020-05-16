@@ -8,14 +8,9 @@ class MySupply extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.state = {
-            INACTIVE: true,
-            FALLING: false,
-            LANDED: false
-        };
+        this.state = SupplyStates.INACTIVE;
 
-        this.position = [0, 9, 0];
-        
+        this.position = [0, 9, 0];        
         this.previous_t = 0;
 
         this.box = new MyBox(scene);
@@ -28,57 +23,54 @@ class MySupply extends CGFobject {
         if (this.previous_t === 0) {
             elapsedTime = 0;
         }    
-        else{
+        else {
             elapsedTime = t - this.previous_t;
         }
 
         this.previous_t = t;
 
-        if (this.state.FALLING) {
+        if (this.state == SupplyStates.FALLING) {
             this.position[1] -= elapsedTime * (15 / 3000.0);
             
-            if (this.position[1] <= -24.7) 
+            if (this.position[1] <= this.floorLevel) 
                 this.land();
         }
     }
 
-    drop(x, z) {
-        this.state.INACTIVE = false;
-        this.state.FALLING = true;
-
-        this.position[0] = x;
-        this.position[2] = z;
+    drop(dropPosition) {
+        if (this.state == SupplyStates.INACTIVE) {
+            this.state = SupplyStates.FALLING;
+            this.position[0] = dropPosition[0];
+            this.position[1] = dropPosition[1];
+            this.position[2] = dropPosition[2];
+        }
     }
 
     land() {
-        this.position[1] = -24.7;
-
-        this.state.FALLING = false;
-        this.state.LANDED = true;
+        if ((this.state == SupplyStates.FALLING) && (this.position[1] <= floorLevel)) {
+            this.state = SupplyStates.LANDED;
+        }
     }
 
     reset() {
-        
-        this.state.INACTIVE = true;
-        this.state.FALLING = false;
-        this.state.LANDED = false;
-
-        this.position[1] = 9;
+        this.state = SupplyStates.INACTIVE;
         this.previous_t = 0;
-        
     }
 
     display() {
-        if (!this.state.INACTIVE) {
-            this.scene.pushMatrix();
-            this.scene.translate(this.position[0], this.position[1], this.position[2]);
-            
-            if (this.state.FALLING) 
+        this.scene.pushMatrix();
+        switch (this.state) {
+            case INACTIVE:
+                break;
+            case FALLING:
                 this.box.display();
-            else 
+                break;
+            case LANDED:
                 this.openBox.display();
-            
-            this.scene.popMatrix();
+                break;
+            default:
+                break;
         }
+        this.scene.popMatrix();
     }
 }
