@@ -30,7 +30,7 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
-        this.terrain = new MyPlane(this, 20, 0, 1, 0, 1);
+        this.terrain = new MyPlane(this, 20, 0, 1, 0, 1, false);
         this.billboard = new MyBillboard(this, 0);
 
         this.supplyArray = [];

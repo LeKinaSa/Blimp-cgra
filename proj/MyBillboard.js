@@ -10,7 +10,8 @@ class MyBillboard extends CGFobject {
     }
     
 	initBuffers() {
-        this.plane = new MyPlane(this.scene, 20, 0, 1, 0, 1);
+        this.board    = new MyPlane(this.scene, 2, 0, 1, 0, 1,  true);
+        this.progress = new MyPlane(this.scene, 20, 0, 1, 0, 1, false);
     }
     
     initMaterials() {
@@ -45,21 +46,21 @@ class MyBillboard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.95, -1, 0);
         this.scene.scale(0.1, 1, 1);
-        this.plane.display();
+        this.board.display();
         this.scene.popMatrix();
         
         // Left Leg
         this.scene.pushMatrix();
         this.scene.translate(-0.95, -1, 0);
         this.scene.scale(0.1, 1, 1);
-        this.plane.display();
+        this.board.display();
         this.scene.popMatrix();
 
         // Supplies Display
         this.textTexture.apply();
         this.scene.pushMatrix();
         this.scene.scale(2, 1, 1);
-        this.plane.display();
+        this.board.display();
         this.scene.popMatrix();
 
         // Progress Bar
@@ -69,7 +70,7 @@ class MyBillboard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0, -0.15, 0.001);
         this.scene.scale(1.5, 0.2, 1);
-        this.plane.display();
+        this.progress.display();
         this.scene.popMatrix();
         // restore default shader
         this.scene.setActiveShader(this.scene.defaultShader);

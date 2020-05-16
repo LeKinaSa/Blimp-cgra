@@ -15,7 +15,7 @@ class MyVehicle extends CGFobject {
         this.sphere = new MySphere(this.scene, 16, 16);
         this.oval   = new MyBody  (this.scene);
         this.helice = new MyHelice(this.scene);
-        this.flag   = new MyPlane (this.scene, 20, 0, 1, 0, 1);
+        this.flag   = new MyPlane (this.scene, 20, 0, 1, 0, 1, true);
         this.heliceAngle = 0;
     }
     
@@ -238,13 +238,6 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0, 0, -2.2);
         this.scene.scale(1, 0.8, 1.5);
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.flag.display();
-        this.scene.popMatrix();
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, -2.2);
-        this.scene.scale(1, 0.8, 1.5);
-        this.scene.scale(1, 1, -1);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.flag.display();
         this.scene.popMatrix();
