@@ -99,15 +99,18 @@ class MyScene extends CGFscene {
         this.vehicleTextureIds = { 'Blimp': 0, 'Watermelon': 1 };
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setPosition(24, 24, 15, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+        
+        this.lights[1].setPosition(-8, -15, -10);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].enable();
+        this.lights[1].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 20), vec3.fromValues(0, -5, 0));
-        // TODO : remove
-        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(48, 48, 30), vec3.fromValues(0, -5, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -218,7 +221,9 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
+        // update lights
         this.lights[0].update();
+        this.lights[1].update();
         
         // Draw axis
         if (this.displayAxis)

@@ -38,7 +38,6 @@ class MyBillboard extends CGFobject {
     }
 
     display() {
-        this.scene.scale(10, 10, 10);
         // Legs of the Panel
         this.grey.apply();
         
@@ -68,7 +67,7 @@ class MyBillboard extends CGFobject {
         // apply shader
         this.scene.setActiveShader(this.progressShader);
         this.scene.pushMatrix();
-        this.scene.translate(0, -0.15, 0.001);
+        this.scene.translate(0, -0.15, 0.01);
         this.scene.scale(1.5, 0.2, 1);
         this.progress.display();
         this.scene.popMatrix();
