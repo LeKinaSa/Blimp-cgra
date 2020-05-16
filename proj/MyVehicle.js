@@ -100,13 +100,25 @@ class MyVehicle extends CGFobject {
         // Wing Top
         this.scene.pushMatrix();
         this.scene.translate(0, 0.45, -0.7);
-        if (this.scene.direction == this.scene.directions['Right']) {
-            // Rudders go Left -> Wing go Left
-            this.scene.rotate(-Math.PI/6, 0, 1, 0);
+        if (this.velocity >= 0) {
+            if (this.scene.direction == this.scene.directions['Right']) {
+                // Rudders go Left -> Wing go Left
+                this.scene.rotate(-Math.PI/6, 0, 1, 0);
+            }
+            else if (this.scene.direction == this.scene.directions['Left']) {
+                // Rudders go Right -> Wing go Right
+                this.scene.rotate(Math.PI/6, 0, 1, 0);
+            }
         }
-        else if (this.scene.direction == this.scene.directions['Left']) {
-            // Rudders go Right -> Wing go Right
-            this.scene.rotate(Math.PI/6, 0, 1, 0);
+        else {
+            if (this.scene.direction == this.scene.directions['Right']) {
+                // Rudders go Left -> Wing go Left
+                this.scene.rotate(Math.PI/6, 0, 1, 0);
+            }
+            else if (this.scene.direction == this.scene.directions['Left']) {
+                // Rudders go Right -> Wing go Right
+                this.scene.rotate(-Math.PI/6, 0, 1, 0);
+            }
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.scale(0.4, 0.4, 1);
@@ -116,13 +128,25 @@ class MyVehicle extends CGFobject {
         // Wing Bot
         this.scene.pushMatrix();
         this.scene.translate(0, -0.45, -0.7);
-        if (this.scene.direction == this.scene.directions['Right']) {
-            // Rudders go Left -> Wing go Left
-            this.scene.rotate(-Math.PI/6, 0, 1, 0);
+        if (this.velocity >= 0) {
+            if (this.scene.direction == this.scene.directions['Right']) {
+                // Rudders go Left -> Wing go Left
+                this.scene.rotate(-Math.PI/6, 0, 1, 0);
+            }
+            else if (this.scene.direction == this.scene.directions['Left']) {
+                // Rudders go Right -> Wing go Right
+                this.scene.rotate(Math.PI/6, 0, 1, 0);
+            }
         }
-        else if (this.scene.direction == this.scene.directions['Left']) {
-            // Rudders go Right -> Wing go Right
-            this.scene.rotate(Math.PI/6, 0, 1, 0);
+        else {
+            if (this.scene.direction == this.scene.directions['Right']) {
+                // Rudders go Left -> Wing go Left
+                this.scene.rotate(Math.PI/6, 0, 1, 0);
+            }
+            else if (this.scene.direction == this.scene.directions['Left']) {
+                // Rudders go Right -> Wing go Right
+                this.scene.rotate(-Math.PI/6, 0, 1, 0);
+            }
         }
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.rotate(Math.PI, 1, 0, 0);
