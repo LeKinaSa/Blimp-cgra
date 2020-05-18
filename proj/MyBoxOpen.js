@@ -10,11 +10,11 @@ class MyBoxOpen extends CGFobject {
 
     initMaterials() {
         this.orangeTexture = new CGFappearance(this.scene);
-        this.orangeTexture.setAmbient (0.9, 0.9, 0.9, 1.0);
+        this.orangeTexture.setAmbient (1.0, 1.0, 1.0, 1.0);
         this.orangeTexture.setDiffuse (0.1, 0.1, 0.1, 1.0);
         this.orangeTexture.setSpecular(0.1, 0.1, 0.1, 1.0);
-        this.orangeTexture.setShininess(10000.0);
-        this.orangeTexture.loadTexture('images/supplyOrangeTexture.jpg');
+        this.orangeTexture.setShininess(10.0);
+        this.orangeTexture.loadTexture('images/Orange-Peel-Texture.jpg');
         this.orangeTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         this.box = new CGFappearance(this.scene);

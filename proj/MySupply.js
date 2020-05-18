@@ -47,7 +47,7 @@ class MySupply extends CGFobject {
             this.position[0] = dropPosition[0];
             this.position[1] = dropPosition[1];
             this.position[2] = dropPosition[2];
-            this.velocity = (this.position[2] - this.floorLevel) / 3.0;
+            this.velocity = (this.position[1] - this.floorLevel) / 3.0;
         }
     }
 
