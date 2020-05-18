@@ -64,10 +64,9 @@ class MyScene extends CGFscene {
         this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
-        this.cubeTexture4 = new CGFtexture(this, 'images/cubeMap4.png');
 
-        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3, this.cubeTexture4];
-        this.cubeTextureIds = { 'Sky': 0, 'Desert': 1, 'Ocean': 2 , 'Test': 3 };
+        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
+        this.cubeTextureIds = { 'Sky': 0, 'Desert': 1, 'Ocean': 2 };
         this.selectedCubeMapTexture = 0;
 
         this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
