@@ -33,10 +33,11 @@ class MySupply extends CGFobject {
         this.previous_t = t;
 
         if (this.state == SupplyStates.FALLING) {
-            this.position[1] -= elapsedTime/1000.0 * this.velocity;
+            this.position[1] -= (elapsedTime/1000.0) * this.velocity;
             
-            if (this.position[1] <= this.floorLevel) 
+            if (this.position[1] <= this.floorLevel) {
                 this.land();
+            }
         }
     }
 
@@ -51,7 +52,8 @@ class MySupply extends CGFobject {
     }
 
     land() {
-        if ((this.state == SupplyStates.FALLING) && (this.position[1] <= floorLevel)) {
+        if ((this.state == SupplyStates.FALLING) && (this.position[1] <= this.floorLevel)) {
+            this.position[1] = this.floorLevel;
             this.state = SupplyStates.LANDED;
         }
     }
@@ -63,6 +65,7 @@ class MySupply extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
+        this.scene.translate(this.position[0], this.position[1], this.position[2]);
         switch (this.state) {
             case SupplyStates.INACTIVE:
                 break;
