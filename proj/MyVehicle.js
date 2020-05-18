@@ -27,7 +27,7 @@ class MyVehicle extends CGFobject {
         this.blimpTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.blimpTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.blimpTexture.setShininess(10.0);
-        this.blimpTexture.loadTexture('images/vehicleTexture1.png');
+        this.blimpTexture.loadTexture('images/blimp.png');
         this.blimpTexture.setTextureWrap('REPEAT', 'REPEAT');
         
         // Blue
@@ -51,7 +51,7 @@ class MyVehicle extends CGFobject {
         this.watermelonTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.watermelonTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.watermelonTexture.setShininess(10.0);
-        this.watermelonTexture.loadTexture('images/watermelon_outside.jpg');
+        this.watermelonTexture.loadTexture('images/watermelon.jpg');
         this.watermelonTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         // Red
@@ -60,7 +60,7 @@ class MyVehicle extends CGFobject {
         this.red.setDiffuse (100/255,  0/255,  0/255, 1.0);
         this.red.setSpecular(255/255,  0/255,  0/255, 1.0);
         this.red.setShininess(10.0);
-        this.red.loadTexture('images/watermelon_inside.jpg');
+        this.red.loadTexture('images/red.jpg');
         this.red.setTextureWrap('REPEAT', 'REPEAT');
 
         // Green
@@ -80,7 +80,7 @@ class MyVehicle extends CGFobject {
         this.blimpFlagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.blimpFlagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.blimpFlagTexture.setShininess(10.0);
-        this.blimpFlagTexture.loadTexture('images/earth.jpg'); // TODO
+        this.blimpFlagTexture.loadTexture('images/red.jpg'); // TODO
         this.blimpFlagTexture.setTextureWrap('REPEAT', 'REPEAT');
         
         this.watermelonFlagTexture = new CGFappearance(this.scene);
@@ -88,7 +88,7 @@ class MyVehicle extends CGFobject {
         this.watermelonFlagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.watermelonFlagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.watermelonFlagTexture.setShininess(10.0);
-        this.watermelonFlagTexture.loadTexture('images/earth.jpg'); // TODO
+        this.watermelonFlagTexture.loadTexture('images/red.jpg'); // TODO
         this.watermelonFlagTexture.setTextureWrap('REPEAT', 'REPEAT');
 
     }

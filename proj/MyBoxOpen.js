@@ -14,7 +14,7 @@ class MyBoxOpen extends CGFobject {
         this.orangeTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.orangeTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.orangeTexture.setShininess(10.0);
-        this.orangeTexture.loadTexture('images/Orange-Peel-Texture.jpg');
+        this.orangeTexture.loadTexture('images/supplyOrange.jpg');
         this.orangeTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         this.box = new CGFappearance(this.scene);
@@ -22,7 +22,7 @@ class MyBoxOpen extends CGFobject {
         this.box.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.box.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.box.setShininess(10.0);
-        this.box.loadTexture('images/insideBoxTexture.jpg');
+        this.box.loadTexture('images/openBox.jpg');
         this.box.setTextureWrap('REPEAT', 'REPEAT');
     }
 

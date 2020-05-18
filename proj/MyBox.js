@@ -12,7 +12,7 @@ class MyBox extends CGFobject {
         this.material.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.material.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.material.setShininess(10.0);
-        this.material.loadTexture('images/boxTexture.jpg');
+        this.material.loadTexture('images/box.jpg');
         this.material.setTextureWrap('REPEAT', 'REPEAT');
     }
 
