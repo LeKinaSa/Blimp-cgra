@@ -75,14 +75,22 @@ class MyVehicle extends CGFobject {
         this.flagShader.setUniformsValues({ speed: 0 });
         this.flagShader.setUniformsValues({ timeFactor: 0 });
 
-        this.flagTexture = new CGFappearance(this.scene);
-        this.flagTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
-        this.flagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
-        this.flagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
-        this.flagTexture.setShininess(10.0);
-        this.flagTexture.loadTexture('images/earth.jpg'); // TODO
-        this.flagTexture.setTextureWrap('REPEAT', 'REPEAT');
+        this.blimpFlagTexture = new CGFappearance(this.scene);
+        this.blimpFlagTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.blimpFlagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.blimpFlagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
+        this.blimpFlagTexture.setShininess(10.0);
+        this.blimpFlagTexture.loadTexture('images/earth.jpg'); // TODO
+        this.blimpFlagTexture.setTextureWrap('REPEAT', 'REPEAT');
         
+        this.watermelonFlagTexture = new CGFappearance(this.scene);
+        this.watermelonFlagTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.watermelonFlagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.watermelonFlagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
+        this.watermelonFlagTexture.setShininess(10.0);
+        this.watermelonFlagTexture.loadTexture('images/earth.jpg'); // TODO
+        this.watermelonFlagTexture.setTextureWrap('REPEAT', 'REPEAT');
+
     }
 
     display() {
@@ -258,7 +266,12 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 
         // Flag
-        this.flagTexture.apply();
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.blimpFlagTexture.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.watermelonFlagTexture.apply();
+        }
         // apply shader
         this.scene.setActiveShader(this.flagShader);
         this.scene.pushMatrix();
