@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyPlane(this, 20, 0, 1, 0, 1, false);
-        this.billboard = new MyBillboard(this, 0);
+        this.billboard = new MyBillboard(this, 5);
 
         this.supplyArray = [];
         this.nSuppliesDelivered = 0;
@@ -64,10 +64,9 @@ class MyScene extends CGFscene {
         this.cubeTexture1 = new CGFtexture(this, 'images/cubeMap1.png');
         this.cubeTexture2 = new CGFtexture(this, 'images/cubeMap2.png');
         this.cubeTexture3 = new CGFtexture(this, 'images/cubeMap3.png');
-        this.cubeTexture4 = new CGFtexture(this, 'images/cubeMap4.png');
 
-        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3, this.cubeTexture4];
-        this.cubeTextureIds = { 'Sky': 0, 'Desert': 1, 'Ocean': 2 , 'Test': 3 };
+        this.cubeTextures = [this.cubeTexture1, this.cubeTexture2, this.cubeTexture3];
+        this.cubeTextureIds = { 'Sky': 0, 'Desert': 1, 'Ocean': 2 };
         this.selectedCubeMapTexture = 0;
 
         this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
@@ -165,6 +164,7 @@ class MyScene extends CGFscene {
             for (let supply of this.supplyArray)
                 supply.reset();
             this.nSuppliesDelivered = 0;
+            this.billboard.resetSuppliesDelivered();
             
             text += "R ";            
             keysPressed = true;
@@ -179,8 +179,9 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyL")) {            
             if (this.nSuppliesDelivered < this.supplyArray.length) {
                 console.log(this.vehicle.position);
-                this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position);
+                this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position, t);
                 this.nSuppliesDelivered ++;
+                this.billboard.deliverSupply();
             }
             
             text += "L ";
@@ -238,6 +239,7 @@ class MyScene extends CGFscene {
             this.terrainMaps[this.selectedTerrainTexture].bind(1);
 
             this.pushMatrix();
+            this.translate(0, -0.1, 0);
             this.scale(50, 1, 50);
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.terrain.display();

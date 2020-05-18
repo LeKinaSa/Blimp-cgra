@@ -8,11 +8,11 @@ class MyBox extends CGFobject {
 
     initMaterials() {
         this.material = new CGFappearance(this.scene);
-        this.material.setAmbient (0.9, 0.9, 0.9, 1);
-        this.material.setDiffuse (0.0, 0.0, 0.0, 1);
-        this.material.setSpecular(0.0, 0.0, 0.0, 1);
+        this.material.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.material.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.material.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.material.setShininess(10.0);
-        this.material.loadTexture('images/boxTexture.jpg');
+        this.material.loadTexture('images/box.jpg');
         this.material.setTextureWrap('REPEAT', 'REPEAT');
     }
 

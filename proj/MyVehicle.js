@@ -27,7 +27,7 @@ class MyVehicle extends CGFobject {
         this.blimpTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.blimpTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.blimpTexture.setShininess(10.0);
-        this.blimpTexture.loadTexture('images/vehicleTexture1.png');
+        this.blimpTexture.loadTexture('images/blimp.png');
         this.blimpTexture.setTextureWrap('REPEAT', 'REPEAT');
         
         // Blue
@@ -51,7 +51,7 @@ class MyVehicle extends CGFobject {
         this.watermelonTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.watermelonTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.watermelonTexture.setShininess(10.0);
-        this.watermelonTexture.loadTexture('images/watermelon_outside.jpg');
+        this.watermelonTexture.loadTexture('images/watermelon.jpg');
         this.watermelonTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         // Red
@@ -60,14 +60,14 @@ class MyVehicle extends CGFobject {
         this.red.setDiffuse (100/255,  0/255,  0/255, 1.0);
         this.red.setSpecular(255/255,  0/255,  0/255, 1.0);
         this.red.setShininess(10.0);
-        this.red.loadTexture('images/watermelon_inside.jpg');
+        this.red.loadTexture('images/red.jpg');
         this.red.setTextureWrap('REPEAT', 'REPEAT');
 
         // Green
         this.green = new CGFappearance(this.scene);
-        this.green.setAmbient (10/255, 204/255, 10/255, 1.0);
-        this.green.setDiffuse ( 0/255, 100/255,  0/255, 1.0);
-        this.green.setSpecular( 0/255, 255/255,  0/255, 1.0);
+        this.green.setAmbient (78/255, 134/255, 23/255, 1.0);
+        this.green.setDiffuse (38/255,  66/255, 11/255, 1.0);
+        this.green.setSpecular(98/255, 168/255, 29/255, 1.0);
         this.green.setShininess(10.0);
 
         // --- FLAG --- //
@@ -75,14 +75,22 @@ class MyVehicle extends CGFobject {
         this.flagShader.setUniformsValues({ speed: 0 });
         this.flagShader.setUniformsValues({ timeFactor: 0 });
 
-        this.flagTexture = new CGFappearance(this.scene);
-        this.flagTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
-        this.flagTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
-        this.flagTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
-        this.flagTexture.setShininess(10.0);
-        this.flagTexture.loadTexture('images/earth.jpg'); // TODO
-        this.flagTexture.setTextureWrap('REPEAT', 'REPEAT');
+        this.blimpFlagTexture = new CGFappearance(this.scene);
+        this.blimpFlagTexture.setAmbient (102/255, 102/255, 102/255, 1.0);
+        this.blimpFlagTexture.setDiffuse ( 50/255,  50/255,  50/255, 1.0);
+        this.blimpFlagTexture.setSpecular(128/255, 128/255, 128/255, 1.0);
+        this.blimpFlagTexture.setShininess(10.0);
+        this.blimpFlagTexture.loadTexture('images/blimpFlag.png');
+        this.blimpFlagTexture.setTextureWrap('REPEAT', 'REPEAT');
         
+        this.watermelonFlagTexture = new CGFappearance(this.scene);
+        this.watermelonFlagTexture.setAmbient (102/255, 102/255, 102/255, 1.0);
+        this.watermelonFlagTexture.setDiffuse ( 50/255,  50/255,  50/255, 1.0);
+        this.watermelonFlagTexture.setSpecular(128/255, 128/255, 128/255, 1.0);
+        this.watermelonFlagTexture.setShininess(10.0);
+        this.watermelonFlagTexture.loadTexture('images/watermelonFlag.jpg');
+        this.watermelonFlagTexture.setTextureWrap('REPEAT', 'REPEAT');
+
     }
 
     display() {
@@ -258,7 +266,12 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 
         // Flag
-        this.flagTexture.apply();
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.blimpFlagTexture.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.watermelonFlagTexture.apply();
+        }
         // apply shader
         this.scene.setActiveShader(this.flagShader);
         this.scene.pushMatrix();

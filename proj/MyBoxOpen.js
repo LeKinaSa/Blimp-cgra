@@ -2,7 +2,7 @@ class MyBoxOpen extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.sphere = new MySphere(scene, 10, 10);
+        this.sphere = new MySphere(scene, 16, 16);
         this.quad   = new MyQuad(scene);
 
         this.initMaterials();
@@ -10,19 +10,19 @@ class MyBoxOpen extends CGFobject {
 
     initMaterials() {
         this.orangeTexture = new CGFappearance(this.scene);
-        this.orangeTexture.setAmbient (1.0, 1.0, 1.0, 1.0);
-        this.orangeTexture.setDiffuse (0.1, 0.1, 0.1, 1.0);
-        this.orangeTexture.setSpecular(0.1, 0.1, 0.1, 1.0);
+        this.orangeTexture.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.orangeTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.orangeTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.orangeTexture.setShininess(10.0);
-        this.orangeTexture.loadTexture('images/Orange-Peel-Texture.jpg');
+        this.orangeTexture.loadTexture('images/supplyOrange.jpg');
         this.orangeTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         this.box = new CGFappearance(this.scene);
-        this.box.setAmbient (0.9, 0.9, 0.9, 1);
-        this.box.setDiffuse (0.1, 0.1, 0.1, 1);
-        this.box.setSpecular(0.1, 0.1, 0.1, 1);
+        this.box.setAmbient (204/255, 204/255, 204/255, 1.0);
+        this.box.setDiffuse (100/255, 100/255, 100/255, 1.0);
+        this.box.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.box.setShininess(10.0);
-        this.box.loadTexture('images/insideBoxTexture.jpg');
+        this.box.loadTexture('images/openBox.jpg');
         this.box.setTextureWrap('REPEAT', 'REPEAT');
     }
 
@@ -62,7 +62,6 @@ class MyBoxOpen extends CGFobject {
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.quad.display();
         this.scene.popMatrix();
-
 
         this.orangeTexture.apply();
 
