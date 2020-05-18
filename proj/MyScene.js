@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyPlane(this, 20, 0, 1, 0, 1, false);
-        this.billboard = new MyBillboard(this, 0);
+        this.billboard = new MyBillboard(this, 5);
 
         this.supplyArray = [];
         this.nSuppliesDelivered = 0;
@@ -165,6 +165,7 @@ class MyScene extends CGFscene {
             for (let supply of this.supplyArray)
                 supply.reset();
             this.nSuppliesDelivered = 0;
+            this.billboard.resetSuppliesDelivered();
             
             text += "R ";            
             keysPressed = true;
@@ -181,6 +182,7 @@ class MyScene extends CGFscene {
                 console.log(this.vehicle.position);
                 this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position, t);
                 this.nSuppliesDelivered ++;
+                this.billboard.deliverSupply();
             }
             
             text += "L ";

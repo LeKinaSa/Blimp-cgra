@@ -77,6 +77,12 @@ class MyBillboard extends CGFobject {
     
     deliverSupply() {
         this.nSuppliesDelivered += 1;
+        console.log(this.nSuppliesDelivered);
+        this.progressShader.setUniformsValues({ nSuppliesDelivered: this.nSuppliesDelivered });
+    }
+
+    resetSuppliesDelivered() {
+        this.nSuppliesDelivered = 0;
         this.progressShader.setUniformsValues({ nSuppliesDelivered: this.nSuppliesDelivered });
     }
 }
