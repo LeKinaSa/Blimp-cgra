@@ -179,7 +179,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyL")) {            
             if (this.nSuppliesDelivered < this.supplyArray.length) {
                 console.log(this.vehicle.position);
-                this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position);
+                this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position, t);
                 this.nSuppliesDelivered ++;
             }
             

@@ -21,14 +21,7 @@ class MySupply extends CGFobject {
     }
 
     update(t) {
-        let elapsedTime;
-
-        if (this.previous_t === 0) {
-            elapsedTime = 0;
-        }    
-        else {
-            elapsedTime = t - this.previous_t;
-        }
+        let elapsedTime = t - this.previous_t;
 
         this.previous_t = t;
 
@@ -41,13 +34,14 @@ class MySupply extends CGFobject {
         }
     }
 
-    drop(dropPosition) {
+    drop(dropPosition, t) {
         if (this.state == SupplyStates.INACTIVE) {
             this.state = SupplyStates.FALLING;
             this.position[0] = dropPosition[0];
             this.position[1] = dropPosition[1];
             this.position[2] = dropPosition[2];
-            this.velocity = (this.position[2] - this.floorLevel) / 3.0;
+            this.velocity = (this.position[1] - this.floorLevel) / 3.0;
+            this.previous_t = t;
         }
     }
 
@@ -60,7 +54,6 @@ class MySupply extends CGFobject {
 
     reset() {
         this.state = SupplyStates.INACTIVE;
-        this.previous_t = 0;
     }
 
     display() {
