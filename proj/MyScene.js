@@ -239,6 +239,7 @@ class MyScene extends CGFscene {
             this.terrainMaps[this.selectedTerrainTexture].bind(1);
 
             this.pushMatrix();
+            this.translate(0, -0.1, 0);
             this.scale(50, 1, 50);
             this.rotate(-Math.PI/2, 1, 0, 0);
             this.terrain.display();
