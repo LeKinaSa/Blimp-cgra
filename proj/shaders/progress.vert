@@ -19,8 +19,8 @@ uniform float nSuppliesDelivered;
 
 void main() {
 	vec4 vertex = vec4(aVertexPosition + aVertexNormal * normScale * 0.1, 1.0);
-    coords = vertex / 10.0;
+    coords = vertex;
     limit = nSuppliesDelivered / nSuppliesToDeliver;
-
+    
 	gl_Position = uPMatrix * uMVMatrix * vertex;
 }
