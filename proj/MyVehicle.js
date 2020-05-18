@@ -51,7 +51,7 @@ class MyVehicle extends CGFobject {
         this.watermelonTexture.setDiffuse (100/255, 100/255, 100/255, 1.0);
         this.watermelonTexture.setSpecular(255/255, 255/255, 255/255, 1.0);
         this.watermelonTexture.setShininess(10.0);
-        this.watermelonTexture.loadTexture('images/vehicleTexture1.png'); // TODO
+        this.watermelonTexture.loadTexture('images/watermelon_outside.jpg');
         this.watermelonTexture.setTextureWrap('REPEAT', 'REPEAT');
 
         // Red
@@ -60,6 +60,8 @@ class MyVehicle extends CGFobject {
         this.red.setDiffuse (100/255,  0/255,  0/255, 1.0);
         this.red.setSpecular(255/255,  0/255,  0/255, 1.0);
         this.red.setShininess(10.0);
+        this.red.loadTexture('images/watermelon_inside.jpg');
+        this.red.setTextureWrap('REPEAT', 'REPEAT');
 
         // Green
         this.green = new CGFappearance(this.scene);
