@@ -38,7 +38,7 @@ class MySupply extends CGFobject {
         if (this.state == SupplyStates.INACTIVE) {
             this.state = SupplyStates.FALLING;
             this.position[0] = dropPosition[0];
-            this.position[1] = dropPosition[1];
+            this.position[1] = dropPosition[1] - 1.0;
             this.position[2] = dropPosition[2];
             this.velocity = (this.position[1] - this.floorLevel) / 3.0;
             this.previous_t = t;
