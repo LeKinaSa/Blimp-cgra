@@ -27,8 +27,6 @@ class MyBoxOpen extends CGFobject {
     }
 
     display() {
-        this.scene.pushMatrix();
-        this.scene.scale(2, 2, 2);
         this.box.apply();
         
         // Bottom
@@ -89,8 +87,6 @@ class MyBoxOpen extends CGFobject {
         this.scene.translate(0.35, 0.15, 0);
         this.scene.scale(0.15, 0.15, 0.15);
         this.sphere.display();
-        this.scene.popMatrix();
-
         this.scene.popMatrix();
     }
 }
