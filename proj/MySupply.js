@@ -49,6 +49,7 @@ class MySupply extends CGFobject {
         if ((this.state == SupplyStates.FALLING) && (this.position[1] <= this.floorLevel)) {
             this.position[1] = this.floorLevel;
             this.state = SupplyStates.LANDED;
+            this.scene.deliverSupply();
         }
     }
 
