@@ -11,11 +11,12 @@ class MyVehicle extends CGFobject {
     }
     
 	initBuffers() {
-        this.wing   = new MyWing  (this.scene);
-        this.sphere = new MySphere(this.scene, 16, 16);
-        this.oval   = new MyBody  (this.scene);
-        this.helice = new MyHelice(this.scene);
-        this.flag   = new MyPlane (this.scene, 20, 0, 1, 0, 1, true);
+        this.wing   = new MyWing    (this.scene);
+        this.sphere = new MySphere  (this.scene, 16, 16);
+        this.oval   = new MyBody    (this.scene);
+        this.helice = new MyHelice  (this.scene);
+        this.flag   = new MyPlane   (this.scene, 20, 0, 1, 0, 1, true);
+        this.cable  = new MyCilinder(this.scene, 16);
         this.heliceAngle = 0;
     }
     
@@ -282,6 +283,30 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
         // restore default shader
         this.scene.setActiveShader(this.scene.defaultShader);
+
+        // Cables
+        if (this.scene.selectedVehicleTexture == 0) {
+            this.grey.apply();
+        }
+        else if (this.scene.selectedVehicleTexture == 1) {
+            this.green.apply();
+        }
+
+        // Up Cable
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0.2, -1.45);
+        this.scene.scale(0.01, 0.01, 0.55);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.cable.display();
+        this.scene.popMatrix();
+
+        //Down Cable
+        this.scene.pushMatrix();
+        this.scene.translate(0, -0.2, -1.45);
+        this.scene.scale(0.01, 0.01, 0.55);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.cable.display();
+        this.scene.popMatrix();
 
         this.scene.popMatrix(); // 1
         

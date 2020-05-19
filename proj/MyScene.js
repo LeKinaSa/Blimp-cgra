@@ -181,7 +181,6 @@ class MyScene extends CGFscene {
                 console.log(this.vehicle.position);
                 this.supplyArray[this.nSuppliesDelivered].drop(this.vehicle.position, t);
                 this.nSuppliesDelivered ++;
-                this.billboard.deliverSupply();
             }
             
             text += "L ";
@@ -191,6 +190,10 @@ class MyScene extends CGFscene {
         if (keysPressed) {
             console.log(text);
         }
+    }
+
+    deliverSupply() {
+        this.billboard.deliverSupply();
     }
 
     updateAppliedTexture() {
