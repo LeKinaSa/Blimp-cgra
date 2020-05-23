@@ -21,6 +21,8 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayCubeMap').name('Display CubeMap');
         this.gui.add(this.scene, 'displayTerrain').name('Display Terrain');
         this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
+        this.gui.add(this.scene, 'displaySupply').name('Display Supplies');
+        this.gui.add(this.scene, 'displayBillboard').name('Display Billboard');
         this.gui.add(this.scene, 'negativeSpeed').name('Reversing Vehicle');
 
         // List Box to select Cube Map Texture

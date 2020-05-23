@@ -44,6 +44,7 @@ class MyScene extends CGFscene {
         this.displayCubeMap = true;
         this.displayVehicle = true;
         this.displayTerrain = true;
+        this.displaySupply = true;
         this.displayBillboard = true;
         this.negativeSpeed = true;
 
@@ -227,6 +228,7 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        /* --- Cube Map --- */
         if (this.displayCubeMap) {
             this.cubeMaterial.apply();
             this.pushMatrix();
@@ -235,6 +237,7 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
+        /* --- Terrain --- */
         if (this.displayTerrain) {
             // apply shader
             this.terrainTexture.apply();
@@ -251,16 +254,21 @@ class MyScene extends CGFscene {
             this.setActiveShader(this.defaultShader);
         }
 
+        /* --- Vehicle --- */
         if (this.displayVehicle) {
             this.pushMatrix();
             this.vehicle.display();
             this.popMatrix();
         }
 
-        for (let supply of this.supplyArray){
-            supply.display();
+        /* --- Supply --- */
+        if (this.displaySupply) {
+            for (let supply of this.supplyArray){
+                supply.display();
+            }
         }
         
+        /* --- Billboard --- */
         if (this.displayBillboard) {
             this.pushMatrix();
             if (this.selectedTerrainTexture == 0) {
